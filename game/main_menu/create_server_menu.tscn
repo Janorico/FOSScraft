@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://dd0c62nu4n6ap"]
+
+[ext_resource type="PackedScene" uid="uid://ct1gf888m6xqu" path="res://game/main_menu/menu.tscn" id="1_v5y6u"]
+[ext_resource type="PackedScene" uid="uid://ctlxcvkdatog3" path="res://game/main_menu/worlds_menu.tscn" id="2_b41du"]
+
+[node name="HostServerMenu" instance=ExtResource("1_v5y6u")]
+
+[node name="TitleLabel" parent="CenterContainer/VBoxContainer" index="0"]
+text = "Host Server"
+
+[node name="OptionButton" type="OptionButton" parent="CenterContainer/VBoxContainer" index="1"]
+layout_mode = 2
+item_count = 2
+popup/item_0/text = "Server 1"
+popup/item_0/id = 0
+popup/item_1/text = "Server 2"
+popup/item_1/id = 1
+
+[node name="ServerOptions" type="GridContainer" parent="CenterContainer/VBoxContainer" index="2"]
+layout_mode = 2
+columns = 2
+
+[node name="PortLabel" type="Label" parent="CenterContainer/VBoxContainer/ServerOptions" index="0"]
+layout_mode = 2
+text = "Port: "
+
+[node name="PortSpinBox" type="SpinBox" parent="CenterContainer/VBoxContainer/ServerOptions" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 65535.0
+value = 6767.0
+
+[node name="MaxPlayersLabel" type="Label" parent="CenterContainer/VBoxContainer/ServerOptions" index="2"]
+layout_mode = 2
+text = "Max Players: "
+
+[node name="MaxPlayersSpinBox" type="SpinBox" parent="CenterContainer/VBoxContainer/ServerOptions" index="3"]
+layout_mode = 2
+min_value = 2.0
+max_value = 1000.0
+value = 100.0
+
+[node name="DedicatedLabel" type="Label" parent="CenterContainer/VBoxContainer/ServerOptions" index="4"]
+layout_mode = 2
+text = "Dedicated: "
+
+[node name="DedicatedCheckButton" type="CheckButton" parent="CenterContainer/VBoxContainer/ServerOptions" index="5"]
+layout_mode = 2
+
+[node name="WorldsMenu" parent="CenterContainer/VBoxContainer" index="3" instance=ExtResource("2_b41du")]
+layout_mode = 2

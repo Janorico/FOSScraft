@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://deckof1hodngi"]
+
+[ext_resource type="PackedScene" uid="uid://ct1gf888m6xqu" path="res://game/main_menu/menu.tscn" id="1_dw377"]
+[ext_resource type="PackedScene" uid="uid://ctlxcvkdatog3" path="res://game/main_menu/worlds_menu.tscn" id="2_0t3jb"]
+
+[node name="SingleplayerMenu" instance=ExtResource("1_dw377")]
+
+[node name="TitleLabel" parent="CenterContainer/VBoxContainer" index="0"]
+text = "Singleplayer"
+
+[node name="WorldsMenu" parent="CenterContainer/VBoxContainer" index="1" instance=ExtResource("2_0t3jb")]
+layout_mode = 2

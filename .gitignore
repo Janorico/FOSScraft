@@ -1,0 +1,5 @@
+# Godot 4+ specific ignores
+.godot/
+export_presets.cfg
+# IntelliJ IDEA specific ignores
+.idea/

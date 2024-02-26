@@ -1,0 +1,81 @@
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://bcr3sy226ow1u"]
+
+[ext_resource type="Texture2D" uid="uid://begnlk5cwt72o" path="res://assets/gui/button.png" id="1_5es0o"]
+[ext_resource type="Texture2D" uid="uid://ya3lkggi3mne" path="res://assets/gui/button_hover.png" id="1_hgrda"]
+[ext_resource type="Texture2D" uid="uid://ciqj40t3g6qsv" path="res://assets/gui/button_pressed.png" id="3_fjymd"]
+[ext_resource type="Texture2D" uid="uid://co2qdygj7h4pw" path="res://assets/gui/check_button_on.png" id="4_winuk"]
+[ext_resource type="Texture2D" uid="uid://bhuly0gmtr0mx" path="res://assets/gui/check_button_off.png" id="5_87ajc"]
+[ext_resource type="FontFile" uid="uid://u2rvti6gbvqp" path="res://assets/gui/font/8bitOperatorPlus8-Bold.ttf" id="6_byooj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8im1e"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1j7q2"]
+resource_name = "ButtonHover"
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+texture = ExtResource("1_hgrda")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4g8ts"]
+resource_name = "ButtonNormal"
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+texture = ExtResource("1_5es0o")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mlxp3"]
+resource_name = "ButtonPressed"
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+texture = ExtResource("3_fjymd")
+texture_margin_left = 14.0
+texture_margin_top = 14.0
+texture_margin_right = 14.0
+texture_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pkpy3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ywyys"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[resource]
+Button/styles/focus = SubResource("StyleBoxEmpty_8im1e")
+Button/styles/hover = SubResource("StyleBoxTexture_1j7q2")
+Button/styles/normal = SubResource("StyleBoxTexture_4g8ts")
+Button/styles/pressed = SubResource("StyleBoxTexture_mlxp3")
+CheckButton/icons/checked = ExtResource("4_winuk")
+CheckButton/icons/unchecked = ExtResource("5_87ajc")
+CheckButton/styles/disabled = SubResource("StyleBoxEmpty_pkpy3")
+CheckButton/styles/focus = SubResource("StyleBoxEmpty_pkpy3")
+CheckButton/styles/hover = SubResource("StyleBoxEmpty_pkpy3")
+CheckButton/styles/hover_pressed = SubResource("StyleBoxEmpty_pkpy3")
+CheckButton/styles/normal = SubResource("StyleBoxEmpty_pkpy3")
+CheckButton/styles/pressed = SubResource("StyleBoxEmpty_pkpy3")
+MarginContainer/constants/margin_bottom = 12
+MarginContainer/constants/margin_left = 12
+MarginContainer/constants/margin_right = 12
+MarginContainer/constants/margin_top = 12
+RichTextLabel/constants/line_separation = 8
+RichTextLabel/fonts/bold_font = ExtResource("6_byooj")
+TabContainer/styles/panel = SubResource("StyleBoxFlat_ywyys")

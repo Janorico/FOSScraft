@@ -1,0 +1,130 @@
+[gd_scene load_steps=9 format=3 uid="uid://cfhf3nkxwi5lt"]
+
+[ext_resource type="PackedScene" uid="uid://deckof1hodngi" path="res://game/main_menu/singleplayer_menu.tscn" id="1_0saxo"]
+[ext_resource type="Script" path="res://game/main_menu/main_menu.gd" id="1_bm77t"]
+[ext_resource type="PackedScene" uid="uid://dd0c62nu4n6ap" path="res://game/main_menu/create_server_menu.tscn" id="1_hd2tm"]
+[ext_resource type="PackedScene" uid="uid://donkwxb0p5hv8" path="res://game/main_menu/join_server_menu.tscn" id="2_fmowk"]
+[ext_resource type="Script" path="res://game/main_menu/advanced_info.gd" id="5_j5cqs"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qajgm"]
+font_size = 48
+
+[sub_resource type="InputEventKey" id="InputEventKey_15v62"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="Shortcut" id="Shortcut_pw0a3"]
+events = [SubResource("InputEventKey_15v62")]
+
+[node name="MainMenu" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bm77t")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "FOSScraft"
+label_settings = SubResource("LabelSettings_qajgm")
+
+[node name="SingleplayerButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Singleplayer"
+
+[node name="HostButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host Server"
+
+[node name="JoinButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join Server"
+
+[node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_pw0a3")
+text = "Exit Game"
+
+[node name="SingleplayerMenu" parent="." instance=ExtResource("1_0saxo")]
+visible = false
+layout_mode = 2
+
+[node name="HostServerMenu" parent="." instance=ExtResource("1_hd2tm")]
+visible = false
+layout_mode = 2
+
+[node name="JoinServerMenu" parent="." instance=ExtResource("2_fmowk")]
+visible = false
+layout_mode = 2
+
+[node name="InfoContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="VersionButton" type="Button" parent="InfoContainer"]
+layout_mode = 2
+text = "FOSScraft vx.x-x"
+
+[node name="CopyrightButton" type="Button" parent="InfoContainer"]
+layout_mode = 2
+text = "Copyright (C) 2024 Janosch Lion"
+
+[node name="AboutDialog" type="AcceptDialog" parent="."]
+title = "About FOSScraft"
+size = Vector2i(620, 312)
+
+[node name="TabContainer" type="TabContainer" parent="AboutDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 612.0
+offset_bottom = 258.0
+use_hidden_tabs_for_min_size = true
+
+[node name="About" type="RichTextLabel" parent="AboutDialog/TabContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]FOSScraft[/b]
+
+Author: Janosch Lion
+Website: [url]https://janorico.github.io/FOSScraft[/url]
+Repository: [url]https://github.com/Janorico/FOSScraft[/url]
+Email: [url=mailto:janorico@posto.de]janorico@posteo.de[/url]"
+
+[node name="Advanced Info" type="RichTextLabel" parent="AboutDialog/TabContainer"]
+visible = false
+layout_mode = 2
+bbcode_enabled = true
+script = ExtResource("5_j5cqs")
+
+[node name="Copyright" type="Label" parent="AboutDialog/TabContainer"]
+visible = false
+layout_mode = 2
+text = "FOSScraft - free and open-source voxel game.
+Copyright (C) 2024 Janosch Lion
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>."
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ExitButton" to="." method="_on_exit"]
+[connection signal="pressed" from="InfoContainer/VersionButton" to="AboutDialog" method="popup_centered"]
+[connection signal="pressed" from="InfoContainer/VersionButton" to="AboutDialog/TabContainer" method="set_current_tab" binds= [0]]
+[connection signal="pressed" from="InfoContainer/CopyrightButton" to="AboutDialog" method="popup_centered"]
+[connection signal="pressed" from="InfoContainer/CopyrightButton" to="AboutDialog/TabContainer" method="set_current_tab" binds= [2]]

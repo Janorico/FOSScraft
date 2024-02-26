@@ -1,0 +1,80 @@
+[gd_scene load_steps=11 format=3 uid="uid://2d32u2wwyt05"]
+
+[ext_resource type="Script" path="res://game/gameplay/player/player.gd" id="1_m2wfh"]
+[ext_resource type="PackedScene" uid="uid://dd3mfu0uy2i60" path="res://assets/3d/player/blocky_character.glb" id="2_dbpkc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a1s5o"]
+size = Vector3(0.4, 1.8, 0.4)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lrcd5"]
+animation = &"walk_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qiw5c"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vge5b"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h6aan"]
+animation = &"walk_backward"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b8c8f"]
+animation = &"walk_right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_kl5iq"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_lrcd5")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_qiw5c")
+blend_point_1/pos = Vector2(0, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_vge5b")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_h6aan")
+blend_point_3/pos = Vector2(0, -1)
+blend_point_4/node = SubResource("AnimationNodeAnimation_b8c8f")
+blend_point_4/pos = Vector2(1, 0)
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_sul8k"]
+graph_offset = Vector2(-1474.59, 43.8579)
+nodes/walk/node = SubResource("AnimationNodeBlendSpace2D_kl5iq")
+nodes/walk/position = Vector2(-373.333, 80)
+node_connections = [&"output", 0, &"walk"]
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_m2wfh")
+collision_aabb = AABB(-0.3, -0.9, -0.3, 0.6, 1.8, 0.6)
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, 0)
+
+[node name="FPPerspective" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17, -0.125)
+current = true
+far = 10000.0
+
+[node name="Authorithy" type="Node3D" parent="Head"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_a1s5o")
+
+[node name="VoxelViewer" type="VoxelViewer" parent="."]
+view_distance = 256
+
+[node name="BlockyCharacter" parent="." instance=ExtResource("2_dbpkc")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.9, 0)
+
+[node name="Skeleton3D" parent="BlockyCharacter/Armature" index="0"]
+bones/5/rotation = Quaternion(0.999999, 0.00114348, -4.37114e-08, -4.9983e-11)
+bones/6/rotation = Quaternion(5.04666e-11, 4.37114e-08, 0.00115454, 0.999999)
+bones/11/rotation = Quaternion(0.999999, -0.00115454, -4.37114e-08, 5.04666e-11)
+bones/12/rotation = Quaternion(-5.04666e-11, 4.37114e-08, -0.00115454, 0.999999)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../BlockyCharacter")
+root_motion_track = NodePath("Armature/Skeleton3D:MotionBone")
+tree_root = SubResource("AnimationNodeBlendTree_sul8k")
+anim_player = NodePath("../BlockyCharacter/AnimationPlayer")
+parameters/walk/blend_position = Vector2(0, 0)
+
+[editable path="BlockyCharacter"]
