@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://qpmhpommxcyx"
+path="res://.godot/imported/dead_bush.obj-12c4d862595450e7153ee8c8a51e0579.mesh"
+
+[deps]
+
+files=["res://.godot/imported/dead_bush.obj-12c4d862595450e7153ee8c8a51e0579.mesh"]
+
+source_file="res://assets/3d/blocks/dead_bush.obj"
+dest_files=["res://.godot/imported/dead_bush.obj-12c4d862595450e7153ee8c8a51e0579.mesh", "res://.godot/imported/dead_bush.obj-12c4d862595450e7153ee8c8a51e0579.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

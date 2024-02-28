@@ -166,6 +166,7 @@ destroy_block={
 
 3d_physics/layer_1="world"
 3d_physics/layer_2="player"
+3d_physics/layer_3="blocks"
 
 [rendering]
 
