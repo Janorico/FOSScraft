@@ -24,7 +24,7 @@ config/icon="res://assets/logo/logo.svg"
 config/windows_native_icon="res://assets/logo/logo.ico"
 boot_splash/minimum_display_time=2000
 config/version_status="dev"
-config/remote_project_settings="https://gtihub.com/Janorico/FOSScraft/project.godot"
+config/remote_project_settings="https://raw.githubusercontent.com/Janorico/FOSScraft/master/project.godot"
 
 [audio]
 
