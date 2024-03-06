@@ -16,11 +16,17 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-
 ## FOSScraft vs. VoxelFun/Minecraft
 
-|   Feature   | FOSSCraft | VoxelFun | Minecraft |
-| ----------- | --------- | -------- | --------- |
+| Feature     | FOSSCraft | VoxelFun | Minecraft |
+|-------------|-----------|----------|-----------|
 | Free        | X         | X        | -         |
 | Open Source | X         | X        | -         |
 
+# Sources
+
+* Godot Engine ([godotengine.org](https://godotengine.org))
+* Godot Voxel Tools ([Zylann/godot_voxel](https://github.com/Zylann/godot_voxel))
+* VoxelFun [Textures](https://github.com/JanoSemi/VoxelFun/blob/main/assets/TextureAtlas.dds) ([JanoSemi/VoxelFun](https://github.com/JanoSemi/VoxelFun))
+* Sky Shader: [Stylized sky with procedural sun and moon](https://godotshaders.com/shader/stylized-sky-with-procedural-sun-and-moon/)
+* Font: [8 Bit Operator](https://www.1001freefonts.com/8-bit-operator.font)
