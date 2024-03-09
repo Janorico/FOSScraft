@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ccdiipswvdw7g"]
+[gd_scene load_steps=15 format=3 uid="uid://ccdiipswvdw7g"]
 
 [ext_resource type="Script" path="res://game/gameplay/gameplay.gd" id="1_u1cob"]
 [ext_resource type="Script" path="res://game/gameplay/generator.gd" id="3_mig4c"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dmwblh7u8l8mb" path="res://game/gameplay/pause_menu.tscn" id="4_0x047"]
 [ext_resource type="PackedScene" uid="uid://2d32u2wwyt05" path="res://game/gameplay/player/player.tscn" id="4_stxob"]
 [ext_resource type="VoxelBlockyLibrary" uid="uid://6wxydt7imxjg" path="res://assets/block_library.tres" id="4_vb2yc"]
+[ext_resource type="Script" path="res://game/gameplay/voxel_terrain.gd" id="5_vw2g4"]
 [ext_resource type="Script" path="res://game/gameplay/interface.gd" id="5_wafdk"]
 [ext_resource type="Texture2D" uid="uid://b3bybmrfxtvav" path="res://assets/textures/faced_block.png" id="6_jsx4j"]
 
@@ -58,6 +59,7 @@ max_view_distance = 1024
 generate_collisions = false
 collision_mask = 3
 run_stream_in_editor = false
+script = ExtResource("5_vw2g4")
 
 [node name="Crosshair" type="TextureRect" parent="."]
 anchors_preset = 8
