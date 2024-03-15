@@ -73,6 +73,10 @@ texture={
 "roughness/mode": 0,
 "roughness/src_normal": ""
 }
+scene={
+"animation/fps": 60.0,
+"meshes/generate_lods": false
+}
 
 [input]
 
