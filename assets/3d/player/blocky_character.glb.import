@@ -3,7 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dd3mfu0uy2i60"
+uid="uid://cjr2d4k3ggpbb"
 path="res://.godot/imported/blocky_character.glb-a7bea6d1f9b3db9afa994217443695c2.scn"
 
 [deps]
@@ -25,7 +25,7 @@ meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
-animation/fps=30
+animation/fps=60.0
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
@@ -9025,12 +9025,6 @@ _subresources={
 "slice_99/save_to_file/path": "",
 "slice_99/start_frame": 0,
 "slices/amount": 0
-}
-},
-"materials": {
-"CharacterMaterial": {
-"use_external/enabled": true,
-"use_external/path": "res://assets/3d/player/CharacterMaterial.tres"
 }
 }
 }

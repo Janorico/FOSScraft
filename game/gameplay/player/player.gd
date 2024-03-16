@@ -15,10 +15,13 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mover = VoxelBoxMover.new()
 @onready var head = $Head
 @onready var camera = $Head/FPPerspective
+@onready var collision_shape = $CollisionShape3D
 @onready var vt = terrain_node.get_voxel_tool()
 var flying := false
 var grounded := true
 var prev_veloctiy = Vector3.ZERO
+var last_jump_time := 0.0
+var crouching := false
 
 
 func _ready() -> void:
@@ -29,19 +32,24 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	# Fly toggle
+	if Input.is_action_just_pressed("jump"):
+		if last_jump_time < 0.2:
+			flying = not flying
+		last_jump_time = 0
+	else:
+		last_jump_time += delta
 	# Grounded
 	var limit = -gravity * delta
 	if prev_veloctiy.y < limit and velocity.y >= limit:
-		print("Hit ground with ", prev_veloctiy.y, "m/s!")
-		if abs(prev_veloctiy.y) > 3.5:
-			print("Ouch, damage!")
+		# TODO Calculate and take damage
 		grounded = true
 	# Don't launch from stairs.
 	if mover.has_stepped_up():
 		velocity.y = 0.0
 	# Y axis movement
 	if flying:
-		velocity.y = lerp(velocity.y, Input.get_axis("crouch", "jump") * base_jump_power, delta)
+		velocity.y = lerp(velocity.y, Input.get_axis("crouch", "jump") * base_jump_power, delta * 5)
 	elif not is_on_floor() or not grounded:
 		velocity.y -= gravity * delta
 	if Input.is_action_just_pressed("jump") and (is_on_floor() or grounded):
@@ -51,9 +59,22 @@ func _physics_process(delta: float) -> void:
 	# Y plane movement
 	var input_dir := Input.get_vector("left", "right", "forward", "backward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	var speed = base_speed + (base_speed * (Input.get_action_strength("sprint") * 1.2))
+	var prev_crouching = crouching
+	crouching = Input.is_action_pressed("crouch")
+	if prev_crouching != crouching:
+		if crouching:
+			head.position.y = 0.35
+			collision_aabb.size.y = 1.5
+			collision_shape.position.y = -0.15
+			collision_shape.shape.size.y = 1.5
+		else:
+			head.position.y = 0.65
+			collision_aabb.size.y = 1.8
+			collision_shape.position.y = 0
+			collision_shape.shape.size.y = 1.8
+	var speed = base_speed + ((base_speed * -0.3) if crouching else (base_speed * (Input.get_action_strength("sprint") * 0.3)))
 	# Sprint effect
-	camera.fov = move_toward(camera.fov, fov + Input.get_action_strength("sprint") * 5, delta * 50)
+	camera.fov = move_toward(camera.fov, fov + Input.get_action_strength("sprint") * 2.5, delta * 25)
 	# Calculate veloctiy
 	if direction:
 		velocity.x = direction.x * speed

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://2d32u2wwyt05"]
 
 [ext_resource type="Script" path="res://game/gameplay/player/player.gd" id="1_m2wfh"]
-[ext_resource type="PackedScene" uid="uid://dd3mfu0uy2i60" path="res://assets/3d/player/blocky_character.glb" id="2_dbpkc"]
+[ext_resource type="PackedScene" uid="uid://cjr2d4k3ggpbb" path="res://assets/3d/player/blocky_character.glb" id="2_dbpkc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a1s5o"]
 size = Vector3(0.4, 1.8, 0.4)
