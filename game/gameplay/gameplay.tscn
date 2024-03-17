@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ccdiipswvdw7g"]
+[gd_scene load_steps=14 format=3 uid="uid://ccdiipswvdw7g"]
 
 [ext_resource type="Script" path="res://game/gameplay/gameplay.gd" id="1_u1cob"]
 [ext_resource type="Script" path="res://game/gameplay/generator.gd" id="3_mig4c"]
@@ -23,11 +23,9 @@ texture_filter = 0
 material = SubResource("StandardMaterial3D_qenrr")
 size = Vector3(1.001, 1.001, 1.001)
 
-[sub_resource type="VoxelStreamSQLite" id="VoxelStreamSQLite_6es10"]
-database_path = "C:/Users/Janosch/AppData/Roaming/Janorico/FOSScraft/world.sqlite"
-
-[sub_resource type="VoxelGeneratorScript" id="VoxelGeneratorScript_m50gb"]
+[sub_resource type="VoxelGeneratorScript" id="VoxelGeneratorScript_n83ji"]
 script = ExtResource("3_mig4c")
+terrain_seed = 0
 terrain_height = 20
 
 [sub_resource type="VoxelMesherBlocky" id="VoxelMesherBlocky_fbbpv"]
@@ -52,8 +50,7 @@ shadow_enabled = true
 [node name="Players" type="Node3D" parent="."]
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
-stream = SubResource("VoxelStreamSQLite_6es10")
-generator = SubResource("VoxelGeneratorScript_m50gb")
+generator = SubResource("VoxelGeneratorScript_n83ji")
 mesher = SubResource("VoxelMesherBlocky_fbbpv")
 max_view_distance = 1024
 generate_collisions = false
