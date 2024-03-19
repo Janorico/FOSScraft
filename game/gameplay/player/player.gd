@@ -72,7 +72,7 @@ func _physics_process(delta: float) -> void:
 			collision_aabb.size.y = 1.8
 			collision_shape.position.y = 0
 			collision_shape.shape.size.y = 1.8
-	var speed = base_speed + ((base_speed * -0.3) if crouching else (base_speed * (Input.get_action_strength("sprint") * 0.3)))
+	var speed = base_speed + ((base_speed * -0.7) if crouching else (base_speed * (Input.get_action_strength("sprint") * 0.3)))
 	# Sprint effect
 	camera.fov = move_toward(camera.fov, fov + Input.get_action_strength("sprint") * 2.5, delta * 25)
 	# Calculate veloctiy
