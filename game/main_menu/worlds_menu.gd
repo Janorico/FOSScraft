@@ -24,7 +24,7 @@ func _ready() -> void:
 func reload_worlds_list() -> void:
 	worlds_list.clear()
 	for i in Global.worlds.values():
-		worlds_list.add_item(i["name"])
+		worlds_list.add_item(i["name"], preload("res://assets/textures/map.png"))
 
 
 func has_selection() -> bool:
