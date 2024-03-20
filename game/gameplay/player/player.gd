@@ -13,6 +13,9 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export_category("Collision")
 @export var collision_aabb: AABB
 var mover = VoxelBoxMover.new()
+@onready var block_label = $SelectedBlock/BlockLabel
+@onready var blocks = terrain_node.mesher.library.models
+var selected_block := 18
 @onready var head = $Head
 @onready var camera = $Head/FPPerspective
 @onready var collision_shape = $CollisionShape3D
@@ -25,6 +28,7 @@ var crouching := false
 
 
 func _ready() -> void:
+	update_block_label()
 	# Set up mover
 	mover.set_collision_mask(collision_mask)
 	mover.set_step_climbing_enabled(true)
@@ -113,7 +117,11 @@ func block_interaction() -> void:
 		if Input.is_action_just_pressed("destroy_block"):
 			vt.set_voxel(faced_block.position, 0)
 		elif Input.is_action_just_pressed("place_block"):
-			vt.set_voxel(faced_block.previous_position, 18)
+			vt.set_voxel(faced_block.previous_position, selected_block)
+
+
+func update_block_label() -> void:
+	block_label.text = blocks[selected_block].resource_name
 
 
 func _input(event: InputEvent) -> void:
@@ -122,3 +130,14 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		rotation_degrees.y -= event.relative.x * 0.15
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x - event.relative.y * 0.15, -90, 90)
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			selected_block += 1
+			if selected_block == blocks.size():
+				selected_block = 1
+			update_block_label()
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			selected_block -= 1
+			if selected_block == 0:
+				selected_block = blocks.size() - 1
+			update_block_label()
