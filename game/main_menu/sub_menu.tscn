@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://ct1gf888m6xqu"]
+
+[ext_resource type="Script" path="res://game/main_menu/sub_menu.gd" id="1_sjm2s"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mgkn5"]
+font_size = 24
+
+[node name="SubMenu" type="PanelContainer"]
+offset_right = 189.0
+offset_bottom = 74.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_sjm2s")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+label_settings = SubResource("LabelSettings_mgkn5")
+horizontal_alignment = 1
+
+[node name="Navigation" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer/Navigation"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<- Back"
+
+[node name="PlayButton" type="Button" parent="VBoxContainer/Navigation"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Play ->"
+
+[connection signal="pressed" from="VBoxContainer/Navigation/BackButton" to="." method="hide"]
+[connection signal="pressed" from="VBoxContainer/Navigation/PlayButton" to="." method="_on_play_button_pressed"]

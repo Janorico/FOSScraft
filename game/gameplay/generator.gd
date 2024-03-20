@@ -1,4 +1,4 @@
-class_name TerrainGeneratorNormal extends VoxelGeneratorScript
+class_name TerrainGeneratorNormal extends FOSScraftGenerator
 
 @export var terrain_seed := 0
 @export var terrain_height := 20

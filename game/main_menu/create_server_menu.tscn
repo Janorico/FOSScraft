@@ -1,51 +1,118 @@
 [gd_scene load_steps=3 format=3 uid="uid://dd0c62nu4n6ap"]
 
-[ext_resource type="PackedScene" uid="uid://ct1gf888m6xqu" path="res://game/main_menu/menu.tscn" id="1_v5y6u"]
+[ext_resource type="PackedScene" uid="uid://ct1gf888m6xqu" path="res://game/main_menu/sub_menu.tscn" id="1_v5y6u"]
 [ext_resource type="PackedScene" uid="uid://ctlxcvkdatog3" path="res://game/main_menu/worlds_menu.tscn" id="2_b41du"]
 
 [node name="HostServerMenu" instance=ExtResource("1_v5y6u")]
 
-[node name="TitleLabel" parent="CenterContainer/VBoxContainer" index="0"]
+[node name="TitleLabel" parent="VBoxContainer" index="0"]
 text = "Host Server"
 
-[node name="OptionButton" type="OptionButton" parent="CenterContainer/VBoxContainer" index="1"]
+[node name="ConfigContainer" type="HBoxContainer" parent="VBoxContainer" index="1"]
 layout_mode = 2
+
+[node name="PresetsLabel" type="Label" parent="VBoxContainer/ConfigContainer" index="0"]
+layout_mode = 2
+text = "Config: "
+
+[node name="ChoosePresetOptionButton" type="OptionButton" parent="VBoxContainer/ConfigContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
 item_count = 2
 popup/item_0/text = "Server 1"
 popup/item_0/id = 0
 popup/item_1/text = "Server 2"
 popup/item_1/id = 1
 
-[node name="ServerOptions" type="GridContainer" parent="CenterContainer/VBoxContainer" index="2"]
+[node name="AddButton" type="Button" parent="VBoxContainer/ConfigContainer" index="2"]
+custom_minimum_size = Vector2(36, 0)
 layout_mode = 2
+text = "+"
+
+[node name="EditButton" type="Button" parent="VBoxContainer/ConfigContainer" index="3"]
+layout_mode = 2
+text = "Edit"
+
+[node name="DeleteButton" type="Button" parent="VBoxContainer/ConfigContainer" index="4"]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+text = "-"
+
+[node name="EditServerConfigDialog" type="ConfirmationDialog" parent="VBoxContainer" index="2"]
+title = "Edit Server Config..."
+position = Vector2i(0, 36)
+size = Vector2i(283, 234)
+
+[node name="Container" type="GridContainer" parent="VBoxContainer/EditServerConfigDialog" index="3"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 275.0
+offset_bottom = 180.0
 columns = 2
 
-[node name="PortLabel" type="Label" parent="CenterContainer/VBoxContainer/ServerOptions" index="0"]
+[node name="NameLabel" type="Label" parent="VBoxContainer/EditServerConfigDialog/Container" index="0"]
+layout_mode = 2
+text = "Name: "
+
+[node name="NameLineEdit" type="LineEdit" parent="VBoxContainer/EditServerConfigDialog/Container" index="1"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+tooltip_text = "The name of the server, displayed in the server menu."
+
+[node name="PortLabel" type="Label" parent="VBoxContainer/EditServerConfigDialog/Container" index="2"]
 layout_mode = 2
 text = "Port: "
 
-[node name="PortSpinBox" type="SpinBox" parent="CenterContainer/VBoxContainer/ServerOptions" index="1"]
+[node name="PortSpinBox" type="SpinBox" parent="VBoxContainer/EditServerConfigDialog/Container" index="3"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "The port the server is hosted on."
 max_value = 65535.0
 value = 6767.0
 
-[node name="MaxPlayersLabel" type="Label" parent="CenterContainer/VBoxContainer/ServerOptions" index="2"]
+[node name="MaxPlayersLabel" type="Label" parent="VBoxContainer/EditServerConfigDialog/Container" index="4"]
 layout_mode = 2
 text = "Max Players: "
 
-[node name="MaxPlayersSpinBox" type="SpinBox" parent="CenterContainer/VBoxContainer/ServerOptions" index="3"]
+[node name="MaxPlayersSpinBox" type="SpinBox" parent="VBoxContainer/EditServerConfigDialog/Container" index="5"]
 layout_mode = 2
-min_value = 2.0
-max_value = 1000.0
-value = 100.0
+tooltip_text = "The maximum number of players on the server.
 
-[node name="DedicatedLabel" type="Label" parent="CenterContainer/VBoxContainer/ServerOptions" index="4"]
+NOTE: This only includes clients, not the server itself for P2P servers."
+min_value = 1.0
+value = 100.0
+allow_greater = true
+
+[node name="DedicatedLabel" type="Label" parent="VBoxContainer/EditServerConfigDialog/Container" index="6"]
 layout_mode = 2
 text = "Dedicated: "
 
-[node name="DedicatedCheckButton" type="CheckButton" parent="CenterContainer/VBoxContainer/ServerOptions" index="5"]
+[node name="DedicatedCheckButton" type="CheckButton" parent="VBoxContainer/EditServerConfigDialog/Container" index="7"]
 layout_mode = 2
+tooltip_text = "Toggles the server to be dedicated or P2P. Dedicated servers do not have their own player."
 
-[node name="WorldsMenu" parent="CenterContainer/VBoxContainer" index="3" instance=ExtResource("2_b41du")]
+[node name="UPnPLabel" type="Label" parent="VBoxContainer/EditServerConfigDialog/Container" index="8"]
+layout_mode = 2
+text = "UPnP: "
+
+[node name="UPnPOptionButton" type="CheckButton" parent="VBoxContainer/EditServerConfigDialog/Container" index="9"]
+layout_mode = 2
+tooltip_text = "UPnP enables the server to be acessible outside the LAN.
+
+NOTE: UPnP needs to be enabled on your router!"
+
+[node name="UPnPPortLabel" type="Label" parent="VBoxContainer/EditServerConfigDialog/Container" index="10"]
+layout_mode = 2
+text = "UPnP Port: "
+
+[node name="UPnPPortSpinBox" type="SpinBox" parent="VBoxContainer/EditServerConfigDialog/Container" index="11"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "The port to open on the router.
+
+NOTE: Has no effect when UPnP is disabled."
+max_value = 65535.0
+value = 6767.0
+
+[node name="WorldsMenu" parent="VBoxContainer" index="3" instance=ExtResource("2_b41du")]
 layout_mode = 2

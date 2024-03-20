@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://ccdiipswvdw7g"]
+[gd_scene load_steps=12 format=3 uid="uid://ccdiipswvdw7g"]
 
 [ext_resource type="Script" path="res://game/gameplay/gameplay.gd" id="1_u1cob"]
-[ext_resource type="Script" path="res://game/gameplay/generator.gd" id="3_mig4c"]
 [ext_resource type="Texture2D" uid="uid://c4a0ovtv6r37" path="res://assets/textures/crosshair.svg" id="3_vg6ml"]
 [ext_resource type="PackedScene" uid="uid://dmwblh7u8l8mb" path="res://game/gameplay/pause_menu.tscn" id="4_0x047"]
 [ext_resource type="PackedScene" uid="uid://2d32u2wwyt05" path="res://game/gameplay/player/player.tscn" id="4_stxob"]
@@ -22,11 +21,6 @@ texture_filter = 0
 [sub_resource type="BoxMesh" id="BoxMesh_0bin3"]
 material = SubResource("StandardMaterial3D_qenrr")
 size = Vector3(1.001, 1.001, 1.001)
-
-[sub_resource type="VoxelGeneratorScript" id="VoxelGeneratorScript_n83ji"]
-script = ExtResource("3_mig4c")
-terrain_seed = 0
-terrain_height = 20
 
 [sub_resource type="VoxelMesherBlocky" id="VoxelMesherBlocky_fbbpv"]
 library = ExtResource("4_vb2yc")
@@ -50,7 +44,6 @@ shadow_enabled = true
 [node name="Players" type="Node3D" parent="."]
 
 [node name="VoxelTerrain" type="VoxelTerrain" parent="."]
-generator = SubResource("VoxelGeneratorScript_n83ji")
 mesher = SubResource("VoxelMesherBlocky_fbbpv")
 max_view_distance = 1024
 generate_collisions = false

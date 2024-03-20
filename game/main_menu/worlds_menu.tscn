@@ -1,115 +1,100 @@
 [gd_scene load_steps=2 format=3 uid="uid://ctlxcvkdatog3"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_2hth7"]
-font_size = 32
+[ext_resource type="Script" path="res://game/main_menu/worlds_menu.gd" id="1_1qjm5"]
 
-[node name="WorldsMenu" type="Control"]
+[node name="WorldsMenu" type="VBoxContainer"]
 custom_minimum_size = Vector2(500, 500)
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 392.0
+offset_bottom = 40.0
 alignment = 1
+script = ExtResource("1_1qjm5")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 2
 
-[node name="WorldsList" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+[node name="WorldsList" type="ItemList" parent="ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+auto_height = true
 
-[node name="Options" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Options" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="CreateButton" type="Button" parent="VBoxContainer/Options"]
+[node name="NewButton" type="Button" parent="Options"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Create World"
+text = "New World"
 
-[node name="RenameButton" type="Button" parent="VBoxContainer/Options"]
+[node name="RenameButton" type="Button" parent="Options"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Rename World"
 
-[node name="DeleteButton" type="Button" parent="VBoxContainer/Options"]
+[node name="DeleteButton" type="Button" parent="Options"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Delete World"
 
-[node name="NewWorldScreen" type="MarginContainer" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="NoSelectionDialog" type="AcceptDialog" parent="."]
+dialog_text = "You haven't selected any world!
 
-[node name="Container" type="VBoxContainer" parent="NewWorldScreen"]
-layout_mode = 2
+This actions needs a world selected to work."
 
-[node name="Label" type="Label" parent="NewWorldScreen/Container"]
-layout_mode = 2
-text = "New World"
-label_settings = SubResource("LabelSettings_2hth7")
-horizontal_alignment = 1
+[node name="NewWorldDialog" type="ConfirmationDialog" parent="."]
+title = "New World..."
+size = Vector2i(272, 146)
 
-[node name="Options" type="TabContainer" parent="NewWorldScreen/Container"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="General" type="CenterContainer" parent="NewWorldScreen/Container/Options"]
-layout_mode = 2
-
-[node name="Container" type="GridContainer" parent="NewWorldScreen/Container/Options/General"]
-layout_mode = 2
+[node name="Container" type="GridContainer" parent="NewWorldDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 264.0
+offset_bottom = 92.0
 columns = 2
 
-[node name="NameLabel" type="Label" parent="NewWorldScreen/Container/Options/General/Container"]
+[node name="NameLabel" type="Label" parent="NewWorldDialog/Container"]
 layout_mode = 2
 text = "Name: "
 
-[node name="NameLineEdit" type="LineEdit" parent="NewWorldScreen/Container/Options/General/Container"]
-custom_minimum_size = Vector2(300, 0)
+[node name="NameLineEdit" type="LineEdit" parent="NewWorldDialog/Container"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-placeholder_text = "Enter a name for your new world"
 
-[node name="Other" type="CenterContainer" parent="NewWorldScreen/Container/Options"]
+[node name="ModeLabel" type="Label" parent="NewWorldDialog/Container"]
 visible = false
 layout_mode = 2
+text = "Mode: "
 
-[node name="Conrainer" type="GridContainer" parent="NewWorldScreen/Container/Options/Other"]
+[node name="ModeOptionButton" type="OptionButton" parent="NewWorldDialog/Container"]
+visible = false
 layout_mode = 2
-columns = 2
+item_count = 4
+selected = 0
+popup/item_0/text = "Creative"
+popup/item_0/id = 0
+popup/item_1/text = "Only Creative"
+popup/item_1/id = 1
+popup/item_2/text = "Survival"
+popup/item_2/id = 2
+popup/item_3/text = "Only Survival"
+popup/item_3/id = 3
 
-[node name="SeedLabel" type="Label" parent="NewWorldScreen/Container/Options/Other/Conrainer"]
+[node name="SeedLabel" type="Label" parent="NewWorldDialog/Container"]
 layout_mode = 2
 text = "Seed: "
 
-[node name="SeedSpinBox" type="SpinBox" parent="NewWorldScreen/Container/Options/Other/Conrainer"]
+[node name="SeedSpinBox" type="SpinBox" parent="NewWorldDialog/Container"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 max_value = 1e+15
 
-[node name="TypeLabel" type="Label" parent="NewWorldScreen/Container/Options/Other/Conrainer"]
+[node name="TypeLabel" type="Label" parent="NewWorldDialog/Container"]
 layout_mode = 2
 text = "Type: "
 
-[node name="TypeOptionButton" type="OptionButton" parent="NewWorldScreen/Container/Options/Other/Conrainer"]
+[node name="TypeOptionButton" type="OptionButton" parent="NewWorldDialog/Container"]
 layout_mode = 2
 item_count = 2
 selected = 0
@@ -118,6 +103,42 @@ popup/item_0/id = 0
 popup/item_1/text = "Flat"
 popup/item_1/id = 1
 
-[node name="CreateButton" type="Button" parent="NewWorldScreen/Container"]
+[node name="RenameWorldDialog" type="ConfirmationDialog" parent="."]
+title = "Rename World..."
+size = Vector2i(309, 106)
+
+[node name="GridContainer" type="GridContainer" parent="RenameWorldDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 301.0
+offset_bottom = 52.0
+columns = 2
+
+[node name="OldNameLabel" type="Label" parent="RenameWorldDialog/GridContainer"]
 layout_mode = 2
-text = "Create"
+text = "Old Name: "
+
+[node name="OldNameLineEdit" type="LineEdit" parent="RenameWorldDialog/GridContainer"]
+layout_mode = 2
+editable = false
+
+[node name="NewNameLabel" type="Label" parent="RenameWorldDialog/GridContainer"]
+layout_mode = 2
+text = "New Name: "
+
+[node name="NewNameLineEdit" type="LineEdit" parent="RenameWorldDialog/GridContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="DeleteWorldDialog" type="ConfirmationDialog" parent="."]
+title = "Delte World..."
+size = Vector2i(314, 104)
+ok_button_text = "Yes"
+cancel_button_text = "No"
+
+[connection signal="pressed" from="Options/NewButton" to="NewWorldDialog" method="popup_centered"]
+[connection signal="pressed" from="Options/RenameButton" to="." method="_on_rename_button_pressed"]
+[connection signal="pressed" from="Options/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="confirmed" from="NewWorldDialog" to="." method="_on_new_world_dialog_confirmed"]
+[connection signal="confirmed" from="RenameWorldDialog" to="." method="_on_rename_world_dialog_confirmed"]
+[connection signal="confirmed" from="DeleteWorldDialog" to="." method="_on_delete_world_dialog_confirmed"]

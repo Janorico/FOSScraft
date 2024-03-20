@@ -1,4 +1,4 @@
-class_name TerrainGeneratoFlat extends VoxelGeneratorScript
+class_name TerrainGeneratoFlat extends FOSScraftGenerator
 
 func _generate_block(out_buffer: VoxelBuffer, origin_in_voxels: Vector3i, lod: int) -> void:
 	out_buffer.fill(0)

@@ -40,15 +40,18 @@ layout_mode = 2
 text = "Singleplayer"
 
 [node name="HostButton" type="Button" parent="CenterContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Host Server"
 
 [node name="JoinButton" type="Button" parent="CenterContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Join Server"
 
 [node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
+tooltip_text = "Close the game"
 shortcut = SubResource("Shortcut_pw0a3")
 text = "Exit Game"
 
@@ -71,10 +74,12 @@ size_flags_vertical = 8
 
 [node name="VersionButton" type="Button" parent="InfoContainer"]
 layout_mode = 2
+tooltip_text = "Show info about FOSScraft"
 text = "FOSScraft vx.x-x"
 
 [node name="CopyrightButton" type="Button" parent="InfoContainer"]
 layout_mode = 2
+tooltip_text = "Show copyright notice"
 text = "Copyright (C) 2024 Janosch Lion"
 
 [node name="AboutDialog" type="AcceptDialog" parent="."]
@@ -96,7 +101,7 @@ text = "[b]FOSScraft[/b]
 Author: Janosch Lion
 Website: [url]https://janorico.github.io/FOSScraft[/url]
 Repository: [url]https://github.com/Janorico/FOSScraft[/url]
-Email: [url=mailto:janorico@posto.de]janorico@posteo.de[/url]"
+Email: [url=mailto:janorico@posteo.de]janorico@posteo.de[/url]"
 
 [node name="Advanced Info" type="RichTextLabel" parent="AboutDialog/TabContainer"]
 visible = false
@@ -123,8 +128,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>."
 
+[connection signal="pressed" from="CenterContainer/VBoxContainer/SingleplayerButton" to="SingleplayerMenu" method="show"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/HostButton" to="HostServerMenu" method="show"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/JoinButton" to="JoinServerMenu" method="show"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ExitButton" to="." method="_on_exit"]
+[connection signal="play_button_pressed" from="SingleplayerMenu" to="." method="_on_singleplayer_menu_play_button_pressed"]
+[connection signal="play_button_pressed" from="HostServerMenu" to="." method="_on_host_server_menu_play_button_pressed"]
+[connection signal="play_button_pressed" from="JoinServerMenu" to="." method="_on_join_server_menu_play_button_pressed"]
 [connection signal="pressed" from="InfoContainer/VersionButton" to="AboutDialog" method="popup_centered"]
 [connection signal="pressed" from="InfoContainer/VersionButton" to="AboutDialog/TabContainer" method="set_current_tab" binds= [0]]
 [connection signal="pressed" from="InfoContainer/CopyrightButton" to="AboutDialog" method="popup_centered"]
 [connection signal="pressed" from="InfoContainer/CopyrightButton" to="AboutDialog/TabContainer" method="set_current_tab" binds= [2]]
+[connection signal="meta_clicked" from="AboutDialog/TabContainer/About" to="." method="_on_rich_text_meta_clicked"]
+[connection signal="meta_clicked" from="AboutDialog/TabContainer/Advanced Info" to="." method="_on_rich_text_meta_clicked"]

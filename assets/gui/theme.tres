@@ -81,6 +81,7 @@ CheckButton/styles/hover = SubResource("StyleBoxEmpty_pkpy3")
 CheckButton/styles/hover_pressed = SubResource("StyleBoxEmpty_pkpy3")
 CheckButton/styles/normal = SubResource("StyleBoxEmpty_pkpy3")
 CheckButton/styles/pressed = SubResource("StyleBoxEmpty_pkpy3")
+ItemList/styles/focus = SubResource("StyleBoxEmpty_8im1e")
 MarginContainer/constants/margin_bottom = 12
 MarginContainer/constants/margin_left = 12
 MarginContainer/constants/margin_right = 12
