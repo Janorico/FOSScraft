@@ -62,3 +62,7 @@ func rename_world(world: String, new_name: String) -> void:
 
 func delete_world(world: String) -> void:
 	OS.move_to_trash(world)
+
+
+func create_backup(world: String) -> void:
+	pass # TODO Make backup

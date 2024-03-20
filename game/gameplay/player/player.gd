@@ -32,8 +32,19 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	var jump_input := false
+	var fly_input := 0.0
+	var input_dir := Vector2.ZERO
+	var prev_crouching = crouching
+	var sprint_input := 0.0
+	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		jump_input = Input.is_action_just_pressed("jump")
+		fly_input = Input.get_axis("crouch", "jump")
+		input_dir = Input.get_vector("left", "right", "forward", "backward")
+		crouching = Input.is_action_pressed("crouch")
+		sprint_input = Input.get_action_strength("sprint")
 	# Fly toggle
-	if Input.is_action_just_pressed("jump"):
+	if jump_input:
 		if last_jump_time < 0.2:
 			flying = not flying
 		last_jump_time = 0
@@ -49,18 +60,15 @@ func _physics_process(delta: float) -> void:
 		velocity.y = 0.0
 	# Y axis movement
 	if flying:
-		velocity.y = lerp(velocity.y, Input.get_axis("crouch", "jump") * base_jump_power, delta * 5)
+		velocity.y = lerp(velocity.y, fly_input * base_jump_power, delta * 5)
 	elif not is_on_floor() or not grounded:
 		velocity.y -= gravity * delta
-	if Input.is_action_just_pressed("jump") and (is_on_floor() or grounded):
+	if jump_input and (is_on_floor() or grounded):
 		velocity.y = base_jump_power
 		grounded = false
 	
 	# Y plane movement
-	var input_dir := Input.get_vector("left", "right", "forward", "backward")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	var prev_crouching = crouching
-	crouching = Input.is_action_pressed("crouch")
 	if prev_crouching != crouching:
 		if crouching:
 			head.position.y = 0.35
@@ -72,9 +80,9 @@ func _physics_process(delta: float) -> void:
 			collision_aabb.size.y = 1.8
 			collision_shape.position.y = 0
 			collision_shape.shape.size.y = 1.8
-	var speed = base_speed + ((base_speed * -0.7) if crouching else (base_speed * (Input.get_action_strength("sprint") * 0.3)))
+	var speed = base_speed + ((base_speed * -0.7) if crouching else (base_speed * (sprint_input * 0.3)))
 	# Sprint effect
-	camera.fov = move_toward(camera.fov, fov + Input.get_action_strength("sprint") * 2.5, delta * 25)
+	camera.fov = move_toward(camera.fov, fov + sprint_input * 2.5, delta * 25)
 	# Calculate veloctiy
 	if direction:
 		velocity.x = direction.x * speed
@@ -105,10 +113,12 @@ func block_interaction() -> void:
 		if Input.is_action_just_pressed("destroy_block"):
 			vt.set_voxel(faced_block.position, 0)
 		elif Input.is_action_just_pressed("place_block"):
-			vt.set_voxel(faced_block.previous_position, 21)
+			vt.set_voxel(faced_block.previous_position, 18)
 
 
 func _input(event: InputEvent) -> void:
+	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
+		return
 	if event is InputEventMouseMotion:
 		rotation_degrees.y -= event.relative.x * 0.15
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x - event.relative.y * 0.15, -90, 90)

@@ -37,6 +37,7 @@ layout_mode = 2
 text = "Resume Game"
 
 [node name="BackupButton" type="Button" parent="CenterContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Save Backup"
 
@@ -47,3 +48,8 @@ text = "Main Menu"
 [node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit Game"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/BackupButton" to="." method="_on_backup_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
