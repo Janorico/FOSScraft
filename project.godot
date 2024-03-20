@@ -23,7 +23,7 @@ boot_splash/use_filter=false
 config/icon="res://assets/logo/logo.svg"
 config/windows_native_icon="res://assets/logo/logo.ico"
 boot_splash/minimum_display_time=2000
-config/version_status="dev"
+config/version_status="beta"
 config/remote_project_settings="https://raw.githubusercontent.com/Janorico/FOSScraft/master/project.godot"
 
 [audio]

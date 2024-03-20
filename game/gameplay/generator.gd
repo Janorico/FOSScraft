@@ -1,10 +1,9 @@
 class_name TerrainGeneratorNormal extends FOSScraftGenerator
 
-@export var terrain_seed := 0
 @export var terrain_height := 20
 # Noises
-var noise: Noise = FastNoiseLite.new()
-var ore_noise = ZN_FastNoiseLite.new()
+var noise := FastNoiseLite.new()
+var ore_noise := ZN_FastNoiseLite.new()
 
 var setup_done := false
 
@@ -18,6 +17,7 @@ func _generate_block(out_buffer: VoxelBuffer, origin_in_voxels: Vector3i, _lod: 
 		ore_noise.period = 8
 		# Don't run this again
 		setup_done = true
+	# Setup random number generator
 	var rng = RandomNumberGenerator.new()
 	rng.seed = origin_in_voxels.x * terrain_seed + origin_in_voxels.z
 	for x in out_buffer.get_size().x:
