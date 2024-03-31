@@ -1,46 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://donkwxb0p5hv8"]
+[gd_scene load_steps=3 format=3 uid="uid://donkwxb0p5hv8"]
 
 [ext_resource type="PackedScene" uid="uid://ct1gf888m6xqu" path="res://game/main_menu/sub_menu.tscn" id="1_goaxw"]
+[ext_resource type="Script" path="res://game/main_menu/join_server_menu.gd" id="2_2h3iq"]
 
 [node name="JoinServerMenu" instance=ExtResource("1_goaxw")]
-
-[node name="AddServerDialog" type="ConfirmationDialog" parent="." index="0"]
-title = "Add Server"
-size = Vector2i(362, 106)
-
-[node name="ServerOptions" type="GridContainer" parent="AddServerDialog" index="3"]
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 354.0
-offset_bottom = 52.0
-columns = 2
-
-[node name="AddressLabel" type="Label" parent="AddServerDialog/ServerOptions" index="0"]
-layout_mode = 2
-text = "Server Address: "
-
-[node name="AddressLineEdit" type="LineEdit" parent="AddServerDialog/ServerOptions" index="1"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "IPv4/IPv6/Hostname"
-
-[node name="PortLabel" type="Label" parent="AddServerDialog/ServerOptions" index="2"]
-layout_mode = 2
-text = "Port: "
-
-[node name="PortSpinBox" type="SpinBox" parent="AddServerDialog/ServerOptions" index="3"]
-layout_mode = 2
-size_flags_horizontal = 3
-max_value = 65535.0
-value = 6767.0
-
-[node name="RemoveServerDialog" type="ConfirmationDialog" parent="." index="1"]
-title = "Remove Server"
-size = Vector2i(409, 100)
-ok_button_text = "Yes"
-dialog_text = "Are you sure you want to remove this server?"
-cancel_button_text = "No"
+script = ExtResource("2_2h3iq")
 
 [node name="TitleLabel" parent="VBoxContainer" index="0"]
 text = "Join Server"
@@ -55,11 +19,12 @@ layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
 horizontal_scroll_mode = 0
-vertical_scroll_mode = 2
 
-[node name="ServerList" type="VBoxContainer" parent="VBoxContainer/ServersMenu/ScrollContainer" index="0"]
+[node name="ServerList" type="ItemList" parent="VBoxContainer/ServersMenu/ScrollContainer" index="0"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+auto_height = true
 
 [node name="Options" type="HBoxContainer" parent="VBoxContainer/ServersMenu" index="1"]
 layout_mode = 2
@@ -73,3 +38,53 @@ text = "Add Server"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Remove Server"
+
+[node name="AddServerDialog" type="ConfirmationDialog" parent="VBoxContainer" index="2"]
+title = "Add Server"
+size = Vector2i(362, 106)
+
+[node name="ServerOptions" type="GridContainer" parent="VBoxContainer/AddServerDialog" index="3"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 354.0
+offset_bottom = 52.0
+columns = 2
+
+[node name="AddressLabel" type="Label" parent="VBoxContainer/AddServerDialog/ServerOptions" index="0"]
+layout_mode = 2
+text = "Server Address: "
+
+[node name="AddressLineEdit" type="LineEdit" parent="VBoxContainer/AddServerDialog/ServerOptions" index="1"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "IPv4/IPv6/Hostname"
+
+[node name="PortLabel" type="Label" parent="VBoxContainer/AddServerDialog/ServerOptions" index="2"]
+layout_mode = 2
+text = "Port: "
+
+[node name="PortSpinBox" type="SpinBox" parent="VBoxContainer/AddServerDialog/ServerOptions" index="3"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 65535.0
+value = 6767.0
+
+[node name="RemoveServerDialog" type="ConfirmationDialog" parent="VBoxContainer" index="3"]
+title = "Remove Server"
+size = Vector2i(409, 104)
+ok_button_text = "Yes"
+dialog_text = "Are you sure you want to remove this server?
+
+THIS CANT BE UNDONE!"
+cancel_button_text = "No"
+
+[node name="NoSelectionDialog" type="AcceptDialog" parent="VBoxContainer" index="4"]
+dialog_text = "You haven't selected any server!
+
+This action needs a selected server to work."
+
+[connection signal="pressed" from="VBoxContainer/ServersMenu/Options/AddButton" to="." method="_on_add_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/ServersMenu/Options/RemoveButton" to="." method="_on_remove_button_pressed"]
+[connection signal="confirmed" from="VBoxContainer/AddServerDialog" to="." method="_on_add_server_dialog_confirmed"]
+[connection signal="confirmed" from="VBoxContainer/RemoveServerDialog" to="." method="_on_remove_server_dialog_confirmed"]

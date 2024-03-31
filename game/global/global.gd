@@ -1,11 +1,16 @@
 extends Node
 
-const WORLDS_DIR = "user://worlds"
 enum {
 	TYPE_NORMAL = 0,
 	TYPE_FLAT = 1
 }
+const WORLDS_DIR = "user://worlds"
+const MULTIPLAYER_INFO_FILE = "user://multiplayer.json"
 var worlds: Dictionary = {}
+var multiplayer_info = {
+	"server_configs": [],
+	"servers": []
+}
 
 
 func _ready() -> void:
@@ -29,6 +34,20 @@ func _ready() -> void:
 		if not (json is Dictionary and json.has("name") and json.has("mode") and json.has("seed") and json.has("type") and json.has("sqlite_path")):
 			continue
 		worlds[i] = json
+	# Mutliplayer info
+	if not FileAccess.file_exists(MULTIPLAYER_INFO_FILE):
+		return
+	var file = FileAccess.open(MULTIPLAYER_INFO_FILE, FileAccess.READ)
+	var json = JSON.parse_string(file.get_as_text(true))
+	file.close()
+	if json is Dictionary:
+		multiplayer_info = json
+
+
+func _exit_tree() -> void:
+	var file = FileAccess.open(MULTIPLAYER_INFO_FILE, FileAccess.WRITE)
+	file.store_string(JSON.stringify(multiplayer_info))
+	file.close()
 
 
 func save_world_info(world: String) -> void:

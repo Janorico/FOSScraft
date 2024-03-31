@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://ccdiipswvdw7g"]
+[gd_scene load_steps=11 format=3 uid="uid://ccdiipswvdw7g"]
 
 [ext_resource type="Script" path="res://game/gameplay/gameplay.gd" id="1_u1cob"]
 [ext_resource type="Texture2D" uid="uid://c4a0ovtv6r37" path="res://assets/textures/crosshair.svg" id="3_vg6ml"]
 [ext_resource type="PackedScene" uid="uid://dmwblh7u8l8mb" path="res://game/gameplay/pause_menu.tscn" id="4_0x047"]
-[ext_resource type="PackedScene" uid="uid://2d32u2wwyt05" path="res://game/gameplay/player/player.tscn" id="4_stxob"]
 [ext_resource type="VoxelBlockyLibrary" uid="uid://6wxydt7imxjg" path="res://assets/block_library.tres" id="4_vb2yc"]
 [ext_resource type="Script" path="res://game/gameplay/voxel_terrain.gd" id="5_vw2g4"]
 [ext_resource type="Script" path="res://game/gameplay/interface.gd" id="5_wafdk"]
@@ -50,6 +49,8 @@ generate_collisions = false
 collision_mask = 3
 run_stream_in_editor = false
 script = ExtResource("5_vw2g4")
+
+[node name="VoxelTerrainMultiplayerSynchronizer" type="VoxelTerrainMultiplayerSynchronizer" parent="VoxelTerrain"]
 
 [node name="Crosshair" type="TextureRect" parent="."]
 anchors_preset = 8
@@ -103,8 +104,3 @@ vertical_alignment = 1
 
 [node name="PauseMenu" parent="." instance=ExtResource("4_0x047")]
 visible = false
-
-[node name="Player" parent="." node_paths=PackedStringArray("terrain_node", "faced_block_visual") instance=ExtResource("4_stxob")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
-terrain_node = NodePath("../VoxelTerrain")
-faced_block_visual = NodePath("../FacedBlock")

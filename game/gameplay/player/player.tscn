@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://2d32u2wwyt05"]
+[gd_scene load_steps=12 format=3 uid="uid://2d32u2wwyt05"]
 
 [ext_resource type="Script" path="res://game/gameplay/player/player.gd" id="1_m2wfh"]
 [ext_resource type="PackedScene" uid="uid://cjr2d4k3ggpbb" path="res://assets/3d/player/blocky_character.glb" id="2_dbpkc"]
@@ -39,6 +39,17 @@ nodes/walk/node = SubResource("AnimationNodeBlendSpace2D_kl5iq")
 nodes/walk/position = Vector2(-373.333, 80)
 node_connections = [&"output", 0, &"walk"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1irwq"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Head:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 3
@@ -77,6 +88,7 @@ shape = SubResource("BoxShape3D_a1s5o")
 
 [node name="VoxelViewer" type="VoxelViewer" parent="."]
 view_distance = 256
+requires_collisions = false
 
 [node name="BlockyCharacter" parent="." instance=ExtResource("2_dbpkc")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.9, 0)
@@ -93,5 +105,8 @@ root_motion_track = NodePath("Armature/Skeleton3D:MotionBone")
 tree_root = SubResource("AnimationNodeBlendTree_sul8k")
 anim_player = NodePath("../BlockyCharacter/AnimationPlayer")
 parameters/walk/blend_position = Vector2(0, 0)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1irwq")
 
 [editable path="BlockyCharacter"]

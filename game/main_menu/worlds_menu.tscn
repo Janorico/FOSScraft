@@ -13,6 +13,7 @@ script = ExtResource("1_1qjm5")
 layout_mode = 2
 size_flags_vertical = 3
 follow_focus = true
+horizontal_scroll_mode = 0
 
 [node name="WorldsList" type="ItemList" parent="ScrollContainer"]
 layout_mode = 2
@@ -41,7 +42,7 @@ text = "Delete World"
 [node name="NoSelectionDialog" type="AcceptDialog" parent="."]
 dialog_text = "You haven't selected any world!
 
-This actions needs a world selected to work."
+This actions needs a selected world to work."
 
 [node name="NewWorldDialog" type="ConfirmationDialog" parent="."]
 title = "New World..."

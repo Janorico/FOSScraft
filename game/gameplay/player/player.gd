@@ -1,4 +1,4 @@
-extends CharacterBody3D
+class_name Player extends CharacterBody3D
 
 
 @export_category("Entity chracteristics")
@@ -27,15 +27,9 @@ var last_jump_time := 0.0
 var crouching := false
 
 
-func _ready() -> void:
-	update_block_label()
-	# Set up mover
-	mover.set_collision_mask(collision_mask)
-	mover.set_step_climbing_enabled(true)
-	mover.set_max_step_height(0.5)
-
-
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
 	var jump_input := false
 	var fly_input := 0.0
 	var input_dir := Vector2.ZERO
@@ -47,6 +41,8 @@ func _physics_process(delta: float) -> void:
 		input_dir = Input.get_vector("left", "right", "forward", "backward")
 		crouching = Input.is_action_pressed("crouch")
 		sprint_input = Input.get_action_strength("sprint")
+		# Interaction
+		block_interaction()
 	# Fly toggle
 	if jump_input:
 		if last_jump_time < 0.2:
@@ -100,8 +96,33 @@ func _physics_process(delta: float) -> void:
 	velocity = mover.get_motion(position, velocity * delta, collision_aabb, terrain_node) / delta
 	# Godot collision/Apply velocity
 	move_and_slide()
-	# Interaction
-	block_interaction()
+
+
+func initialize(id) -> void:
+	if id:
+		name = "Player%d" % id
+		set_multiplayer_authority(id)
+		# Setup viewer
+		if multiplayer.is_server():
+			var viewer: VoxelViewer = $VoxelViewer
+			viewer.set_network_peer_id(id)
+			if not is_multiplayer_authority():
+				viewer.requires_visuals = false
+			viewer.requires_data_block_notifications = true
+		elif not is_multiplayer_authority():
+			$VoxelViewer.queue_free()
+	else:
+		$MultiplayerSynchronizer.queue_free()
+	if id and not is_multiplayer_authority():
+		$SelectedBlock.queue_free()
+		camera.queue_free()
+		$Head/Authorithy.queue_free()
+	if not id or is_multiplayer_authority():
+		update_block_label()
+		# Set up mover
+		mover.set_collision_mask(collision_mask)
+		mover.set_step_climbing_enabled(true)
+		mover.set_max_step_height(0.5)
 
 
 @rpc("any_peer", "call_local")
@@ -115,9 +136,15 @@ func block_interaction() -> void:
 	if faced_block:
 		faced_block_visual.position = Vector3(faced_block.position) + Vector3(0.5, 0.5, 0.5)
 		if Input.is_action_just_pressed("destroy_block"):
-			vt.set_voxel(faced_block.position, 0)
+			if multiplayer.is_server():
+				break_block(faced_block.position)
+			else:
+				break_block.rpc_id(1, faced_block.position)
 		elif Input.is_action_just_pressed("place_block"):
-			vt.set_voxel(faced_block.previous_position, selected_block)
+			if multiplayer.is_server():
+				place_block(faced_block.previous_position, selected_block)
+			else:
+				place_block.rpc_id(1, faced_block.previous_position, selected_block)
 
 
 func update_block_label() -> void:
@@ -125,6 +152,8 @@ func update_block_label() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	if not is_multiplayer_authority():
+		return
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
 		return
 	if event is InputEventMouseMotion:
@@ -141,3 +170,13 @@ func _input(event: InputEvent) -> void:
 			if selected_block == 0:
 				selected_block = blocks.size() - 1
 			update_block_label()
+
+
+@rpc("call_remote", "any_peer")
+func break_block(pos: Vector3i) -> void:
+	vt.set_voxel(pos, 0)
+
+
+@rpc("call_remote", "any_peer")
+func place_block(pos: Vector3i, block: int) -> void:
+	vt.set_voxel(pos, block)
