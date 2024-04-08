@@ -141,10 +141,16 @@ func block_interaction() -> void:
 			else:
 				break_block.rpc_id(1, faced_block.position)
 		elif Input.is_action_just_pressed("place_block"):
-			if multiplayer.is_server():
-				place_block(faced_block.previous_position, selected_block)
+			if vt.get_voxel(faced_block.position) == 20:
+				if multiplayer.is_server():
+					explode_sphere(faced_block.position, 5)
+				else:
+					explode_sphere.rpc_id(1, faced_block.position, 5)
 			else:
-				place_block.rpc_id(1, faced_block.previous_position, selected_block)
+				if multiplayer.is_server():
+					place_block(faced_block.previous_position, selected_block)
+				else:
+					place_block.rpc_id(1, faced_block.previous_position, selected_block)
 
 
 func update_block_label() -> void:
@@ -180,3 +186,8 @@ func break_block(pos: Vector3i) -> void:
 @rpc("call_remote", "any_peer")
 func place_block(pos: Vector3i, block: int) -> void:
 	vt.set_voxel(pos, block)
+
+
+@rpc("call_remote", "any_peer")
+func explode_sphere(pos: Vector3i, radius: int) -> void:
+	vt.do_sphere(pos, radius)
