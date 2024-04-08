@@ -6,11 +6,16 @@ enum {
 }
 const WORLDS_DIR = "user://worlds"
 const MULTIPLAYER_INFO_FILE = "user://multiplayer.json"
+const RESOURCE_PACK_PATH = "user://resource_pack.pck"
 var worlds: Dictionary = {}
 var multiplayer_info = {
 	"server_configs": [],
 	"servers": []
 }
+
+
+func _init() -> void:
+	print("Loaded resource pack." if ProjectSettings.load_resource_pack(RESOURCE_PACK_PATH) else "Can't load datapack.")
 
 
 func _ready() -> void:
