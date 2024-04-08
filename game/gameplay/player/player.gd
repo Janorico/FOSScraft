@@ -165,16 +165,16 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		rotation_degrees.y -= event.relative.x * 0.15
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x - event.relative.y * 0.15, -90, 90)
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and event.is_pressed():
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			selected_block += 1
-			if selected_block == blocks.size():
-				selected_block = 1
-			update_block_label()
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			selected_block -= 1
 			if selected_block == 0:
 				selected_block = blocks.size() - 1
+			update_block_label()
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			selected_block += 1
+			if selected_block == blocks.size():
+				selected_block = 1
 			update_block_label()
 
 
