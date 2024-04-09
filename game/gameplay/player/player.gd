@@ -151,6 +151,8 @@ func block_interaction() -> void:
 					place_block(faced_block.previous_position, selected_block)
 				else:
 					place_block.rpc_id(1, faced_block.previous_position, selected_block)
+		elif Input.is_action_pressed("pick_block"):
+			selected_block = vt.get_voxel(faced_block.position)
 
 
 func update_block_label() -> void:
