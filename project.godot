@@ -12,7 +12,7 @@ config_version=5
 
 config/name="FOSScraft"
 config/description="FOSScraft - Minecraft-like voxel game with less PvP."
-config/version="0.1"
+config/version="0.2"
 run/main_scene="res://game/main_menu/main_menu.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Janorico/FOSScraft"
