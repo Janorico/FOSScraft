@@ -18,12 +18,17 @@
 
 ## FOSScraft vs. VoxelFun/Minecraft
 
-| Feature     | FOSSCraft | VoxelFun | Minecraft |
+| Feature     | FOSScraft | VoxelFun | Minecraft |
 |-------------|-----------|----------|-----------|
 | Free        | X         | X        | -         |
 | Open Source | X         | X        | -         |
+| Stairs      | X         | -        | X         |
 
-# Sources
+## Setup
+
+Just download the executable at [github.com](https://github.com/Janorico/FOSScraft/releases), and you're ready to go!
+
+## Sources
 
 * Godot Engine ([godotengine.org](https://godotengine.org))
 * Godot Voxel Tools ([Zylann/godot_voxel](https://github.com/Zylann/godot_voxel))
