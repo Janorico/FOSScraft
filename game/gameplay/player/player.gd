@@ -25,6 +25,12 @@ var grounded := true
 var prev_veloctiy = Vector3.ZERO
 var last_jump_time := 0.0
 var crouching := false
+var fill_pos = null
+var erase_pos = null
+
+
+func _ready() -> void:
+	vt.mode = VoxelTool.MODE_SET
 
 
 func _physics_process(delta: float) -> void:
@@ -134,12 +140,13 @@ func block_interaction() -> void:
 	var faced_block = vt.raycast(camera.global_position, -camera.global_basis.z, 5.0)
 	faced_block_visual.visible = faced_block != null
 	if faced_block:
+		var fill = Input.is_action_pressed("fill")
 		faced_block_visual.position = Vector3(faced_block.position) + Vector3(0.5, 0.5, 0.5)
 		if Input.is_action_just_pressed("destroy_block"):
 			if multiplayer.is_server():
-				break_block(faced_block.position)
+				break_block(faced_block.position, fill)
 			else:
-				break_block.rpc_id(1, faced_block.position)
+				break_block.rpc_id(1, faced_block.position, fill)
 		elif Input.is_action_just_pressed("place_block"):
 			if vt.get_voxel(faced_block.position) == 20:
 				if multiplayer.is_server():
@@ -148,9 +155,9 @@ func block_interaction() -> void:
 					explode_sphere.rpc_id(1, faced_block.position, 5)
 			else:
 				if multiplayer.is_server():
-					place_block(faced_block.previous_position, selected_block)
+					place_block(faced_block.previous_position, selected_block, fill)
 				else:
-					place_block.rpc_id(1, faced_block.previous_position, selected_block)
+					place_block.rpc_id(1, faced_block.previous_position, selected_block, fill)
 		elif Input.is_action_pressed("pick_block"):
 			selected_block = vt.get_voxel(faced_block.position)
 			update_block_label()
@@ -182,15 +189,31 @@ func _input(event: InputEvent) -> void:
 
 
 @rpc("call_remote", "any_peer")
-func break_block(pos: Vector3i) -> void:
-	vt.set_voxel(pos, 0)
+func break_block(pos: Vector3i, fill: bool) -> void:
+	if fill:
+		erase_pos = pos
+	elif erase_pos != null:
+		vt.value = 0
+		vt.do_box(erase_pos, pos)
+		erase_pos = null
+	else:
+		vt.set_voxel(pos, 0)
 
 
 @rpc("call_remote", "any_peer")
-func place_block(pos: Vector3i, block: int) -> void:
-	vt.set_voxel(pos, block)
+func place_block(pos: Vector3i, block: int, fill: bool) -> void:
+	if fill:
+		fill_pos = pos
+	elif fill_pos != null:
+		vt.value = selected_block
+		vt.do_box(fill_pos, pos)
+		fill_pos = null
+	else:
+		vt.set_voxel(pos, block)
 
 
 @rpc("call_remote", "any_peer")
 func explode_sphere(pos: Vector3i, radius: int) -> void:
+	vt.mode = VoxelTool.MODE_SET
+	vt.value = 0
 	vt.do_sphere(pos, radius)
