@@ -228,7 +228,8 @@ texture_filter = 0
 
 [sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_txerk"]
 resource_name = "Glass"
-culls_neighbors = false
+transparent = true
+transparency_index = 1
 material_override_0 = SubResource("StandardMaterial3D_ligw1")
 atlas_size_in_tiles = Vector2i(7, 7)
 tile_left = Vector2i(3, 4)
