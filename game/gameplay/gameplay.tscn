@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccdiipswvdw7g"]
+[gd_scene load_steps=13 format=3 uid="uid://ccdiipswvdw7g"]
 
 [ext_resource type="Script" path="res://game/gameplay/gameplay.gd" id="1_u1cob"]
-[ext_resource type="Texture2D" uid="uid://c4a0ovtv6r37" path="res://assets/textures/crosshair.svg" id="3_vg6ml"]
 [ext_resource type="PackedScene" uid="uid://dmwblh7u8l8mb" path="res://game/gameplay/pause_menu.tscn" id="4_0x047"]
 [ext_resource type="VoxelBlockyLibrary" uid="uid://6wxydt7imxjg" path="res://assets/block_library.tres" id="4_vb2yc"]
+[ext_resource type="Shader" path="res://assets/shaders/invert.gdshader" id="5_l1urj"]
 [ext_resource type="Script" path="res://game/gameplay/voxel_terrain.gd" id="5_vw2g4"]
 [ext_resource type="Script" path="res://game/gameplay/interface.gd" id="5_wafdk"]
+[ext_resource type="Texture2D" uid="uid://c4a0ovtv6r37" path="res://assets/textures/crosshair.svg" id="6_jsosn"]
 [ext_resource type="Texture2D" uid="uid://b3bybmrfxtvav" path="res://assets/textures/faced_block.png" id="6_jsx4j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qenrr"]
@@ -23,6 +24,9 @@ size = Vector3(1.001, 1.001, 1.001)
 
 [sub_resource type="VoxelMesherBlocky" id="VoxelMesherBlocky_fbbpv"]
 library = ExtResource("4_vb2yc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gglli"]
+shader = ExtResource("5_l1urj")
 
 [node name="Gameplay" type="Node3D"]
 script = ExtResource("1_u1cob")
@@ -53,6 +57,7 @@ script = ExtResource("5_vw2g4")
 [node name="VoxelTerrainMultiplayerSynchronizer" type="VoxelTerrainMultiplayerSynchronizer" parent="VoxelTerrain"]
 
 [node name="Crosshair" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_gglli")
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -64,7 +69,7 @@ offset_right = 12.0
 offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_vg6ml")
+texture = ExtResource("6_jsosn")
 
 [node name="Interface" type="Control" parent="."]
 layout_mode = 3
