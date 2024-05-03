@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ccdiipswvdw7g"]
+[gd_scene load_steps=15 format=3 uid="uid://ccdiipswvdw7g"]
 
 [ext_resource type="Script" path="res://game/gameplay/gameplay.gd" id="1_u1cob"]
 [ext_resource type="PackedScene" uid="uid://dmwblh7u8l8mb" path="res://game/gameplay/pause_menu.tscn" id="4_0x047"]
@@ -22,6 +22,65 @@ texture_filter = 0
 material = SubResource("StandardMaterial3D_qenrr")
 size = Vector3(1.001, 1.001, 1.001)
 
+[sub_resource type="Animation" id="Animation_15a1u"]
+resource_name = "day_night_cycle"
+length = 1440.0
+loop_mode = 1
+step = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sun:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1440),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-1.5708, 0, 0), Vector3(-1.5708, -6.28319, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sun:light_energy")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 350, 370, 1070, 1090, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 1.0, 0.0, 0.0, 1.0, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Moon:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 430, 1010, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(1.5708, 0, 0), Vector3(1.5708, 1.5708, 0), Vector3(1.5708, 4.71239, 0), Vector3(1.5708, 6.28319, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Moon:light_energy")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 420, 440, 1000, 1020, 1440),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.01, 0.01, 0.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qadsc"]
+_data = {
+"day_night_cycle": SubResource("Animation_15a1u")
+}
+
 [sub_resource type="VoxelMesherBlocky" id="VoxelMesherBlocky_fbbpv"]
 library = ExtResource("4_vb2yc")
 
@@ -35,14 +94,24 @@ script = ExtResource("1_u1cob")
 visible = false
 mesh = SubResource("BoxMesh_0bin3")
 
-[node name="Sun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
+[node name="DayNightCycle" type="Node" parent="."]
+
+[node name="Sun" type="DirectionalLight3D" parent="DayNightCycle"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+rotation_order = 0
 shadow_enabled = true
 
-[node name="Moon" type="DirectionalLight3D" parent="Sun"]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
+[node name="Moon" type="DirectionalLight3D" parent="DayNightCycle"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+rotation_order = 0
 light_energy = 0.0
 shadow_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DayNightCycle"]
+libraries = {
+"": SubResource("AnimationLibrary_qadsc")
+}
+autoplay = "day_night_cycle"
 
 [node name="Players" type="Node3D" parent="."]
 
