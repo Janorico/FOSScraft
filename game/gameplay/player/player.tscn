@@ -81,6 +81,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17, -0.125)
 current = true
 far = 10000.0
 
+[node name="TPPerspective" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17, 0)
+far = 10000.0
+
 [node name="Authorithy" type="Node3D" parent="Head"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

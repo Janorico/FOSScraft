@@ -1,6 +1,13 @@
 class_name Player extends CharacterBody3D
 
 
+enum {
+	PERSPECTIVE_FP, # First person
+	PERSPECTIVE_TP, # Third person
+	PERSPECTIVE_TP_FRONT, # Third person form front
+	PERSPECTIVE_MAX
+}
+
 @export_category("Entity chracteristics")
 @export var base_speed = 4.0
 @export var base_jump_power = 5.0
@@ -18,6 +25,8 @@ var mover = VoxelBoxMover.new()
 var selected_block := 18
 @onready var head = $Head
 @onready var camera = $Head/FPPerspective
+@onready var tp_camera = $Head/TPPerspective
+var perspective = PERSPECTIVE_FP
 @onready var collision_shape = $CollisionShape3D
 @onready var vt = terrain_node.get_voxel_tool()
 var flying := false
@@ -42,13 +51,35 @@ func _physics_process(delta: float) -> void:
 	var prev_crouching = crouching
 	var sprint_input := 0.0
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		# Camera
+		if Input.is_action_just_pressed("change_perspective"):
+			perspective += 1
+			perspective = perspective % PERSPECTIVE_MAX
+			match perspective:
+				PERSPECTIVE_FP: camera.make_current()
+				PERSPECTIVE_TP:
+					tp_camera.make_current()
+					tp_camera.rotation_degrees = Vector3.ZERO
+					tp_camera.position.z = 2.5
+				PERSPECTIVE_TP_FRONT:
+					tp_camera.make_current()
+					tp_camera.rotation_degrees = Vector3(0, 180, 0)
+					tp_camera.position.z = -2.5
 		jump_input = Input.is_action_just_pressed("jump")
 		fly_input = Input.get_axis("crouch", "jump")
 		input_dir = Input.get_vector("left", "right", "forward", "backward")
+		if perspective == PERSPECTIVE_TP_FRONT:
+			input_dir.x *= -1
 		crouching = Input.is_action_pressed("crouch")
 		sprint_input = Input.get_action_strength("sprint")
 		# Interaction
 		block_interaction()
+	# TP camera
+	if perspective != PERSPECTIVE_FP:
+		var result = vt.raycast(head.global_position + head.global_basis.y * 0.17, head.global_basis.z if perspective == PERSPECTIVE_TP else -head.global_basis.z, 2.5)
+		tp_camera.position.z = (result.distance - 0.1) if result else 2.5
+		if perspective == PERSPECTIVE_TP_FRONT:
+			tp_camera.position.z *= -1
 	# Fly toggle
 	if jump_input:
 		if last_jump_time < 0.2:
@@ -89,6 +120,7 @@ func _physics_process(delta: float) -> void:
 	var speed = base_speed + ((base_speed * -0.7) if crouching else (base_speed * (sprint_input * 0.3)))
 	# Sprint effect
 	camera.fov = move_toward(camera.fov, fov + sprint_input * 2.5, delta * 25)
+	tp_camera.fov = camera.fov
 	# Calculate veloctiy
 	if direction:
 		velocity.x = direction.x * speed
@@ -122,6 +154,7 @@ func initialize(id) -> void:
 	if id and not is_multiplayer_authority():
 		$SelectedBlock.queue_free()
 		camera.queue_free()
+		tp_camera.queue_free()
 		$Head/Authorithy.queue_free()
 	if not id or is_multiplayer_authority():
 		update_block_label()
@@ -174,7 +207,7 @@ func _input(event: InputEvent) -> void:
 		return
 	if event is InputEventMouseMotion:
 		rotation_degrees.y -= event.relative.x * 0.15
-		head.rotation_degrees.x = clamp(head.rotation_degrees.x - event.relative.y * 0.15, -90, 90)
+		head.rotation_degrees.x = clamp(head.rotation_degrees.x - event.relative.y * (-0.15 if perspective == PERSPECTIVE_TP_FRONT else 0.15), -90, 90)
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			selected_block -= 1
