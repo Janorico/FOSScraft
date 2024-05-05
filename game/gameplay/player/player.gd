@@ -82,7 +82,7 @@ func _physics_process(delta: float) -> void:
 			tp_camera.position.z *= -1
 	# Fly toggle
 	if jump_input:
-		if last_jump_time < 0.2:
+		if last_jump_time < 0.3:
 			flying = not flying
 		last_jump_time = 0
 	else:
