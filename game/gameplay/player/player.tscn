@@ -91,7 +91,6 @@ far = 10000.0
 shape = SubResource("BoxShape3D_a1s5o")
 
 [node name="VoxelViewer" type="VoxelViewer" parent="."]
-view_distance = 256
 requires_collisions = false
 
 [node name="BlockyCharacter" parent="." instance=ExtResource("2_dbpkc")]
