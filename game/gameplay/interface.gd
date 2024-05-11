@@ -4,7 +4,7 @@ extends Control
 @onready var fps_counter_label = $FPSCounter/Label
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	var player = get_parent().player
 	if not player:
 		return

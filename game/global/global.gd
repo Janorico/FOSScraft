@@ -15,7 +15,7 @@ var multiplayer_info = {
 
 
 func _init() -> void:
-	print("Loaded resource pack." if ProjectSettings.load_resource_pack(RESOURCE_PACK_PATH) else "Can't load datapack.")
+	print("Loaded resource pack." if ProjectSettings.load_resource_pack(RESOURCE_PACK_PATH) else "Can't load resource pack.")
 
 
 func _ready() -> void:
@@ -34,11 +34,11 @@ func _ready() -> void:
 		if not FileAccess.file_exists(i):
 			continue
 		var world_file = FileAccess.open(i, FileAccess.READ)
-		var json = JSON.parse_string(world_file.get_line())
+		var world_json = JSON.parse_string(world_file.get_line())
 		world_file.close()
-		if not (json is Dictionary and json.has("name") and json.has("mode") and json.has("seed") and json.has("type") and json.has("sqlite_path")):
+		if not (world_json is Dictionary and world_json.has("name") and world_json.has("mode") and world_json.has("seed") and world_json.has("type") and world_json.has("sqlite_path")):
 			continue
-		worlds[i] = json
+		worlds[i] = world_json
 	# Mutliplayer info
 	if not FileAccess.file_exists(MULTIPLAYER_INFO_FILE):
 		return

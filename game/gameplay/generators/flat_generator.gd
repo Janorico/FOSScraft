@@ -1,6 +1,6 @@
 class_name TerrainGeneratoFlat extends FOSScraftGenerator
 
-func _generate_block(out_buffer: VoxelBuffer, origin_in_voxels: Vector3i, lod: int) -> void:
+func _generate_block(out_buffer: VoxelBuffer, origin_in_voxels: Vector3i, _lod: int) -> void:
 	out_buffer.fill(0)
 	if origin_in_voxels.y != 0:
 		return

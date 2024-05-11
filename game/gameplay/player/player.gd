@@ -54,7 +54,9 @@ func _physics_process(delta: float) -> void:
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		# Camera
 		if Input.is_action_just_pressed("change_perspective"):
+			@warning_ignore("int_as_enum_without_cast")
 			perspective += 1
+			@warning_ignore("int_as_enum_without_cast")
 			perspective = perspective % PERSPECTIVE_MAX
 			match perspective:
 				PERSPECTIVE_FP: camera.make_current()

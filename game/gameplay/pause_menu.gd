@@ -9,7 +9,7 @@ func _ready() -> void:
 		$CenterContainer/VBoxContainer/HBoxContainer.hide()
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		visible = not visible
 		get_parent().pause_menu_open = visible

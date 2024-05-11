@@ -23,6 +23,7 @@ func _ready() -> void:
 		$VoxelTerrain/VoxelTerrainMultiplayerSynchronizer.queue_free()
 	# Load player
 	if Net.is_singleplayer or not multiplayer.is_server() or not Net.server_config["dedicated"]:
+		@warning_ignore("incompatible_ternary")
 		player = instance_player(null if Net.is_singleplayer else multiplayer.get_unique_id())
 	# Lock cursor
 	update_cursor()
@@ -33,6 +34,7 @@ func _ready() -> void:
 	var voxel_terrain: VoxelTerrain = $VoxelTerrain
 	# Generator
 	var world_info = Global.worlds[world] if world else Net.server_config["world"]
+	@warning_ignore("incompatible_ternary")
 	var generator = TerrainGeneratorNormal.new() if world_info["type"] == Global.TYPE_NORMAL else TerrainGeneratoFlat.new()
 	generator.terrain_seed = floori(world_info["seed"])
 	voxel_terrain.generator = generator
