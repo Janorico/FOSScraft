@@ -33,7 +33,8 @@ var flying := false
 var grounded := true
 var prev_veloctiy = Vector3.ZERO
 var last_jump_time := 0.0
-var crouching := false
+var crouch_temp := false
+var crouch_toggle := false
 var fill_pos = null
 var erase_pos = null
 
@@ -48,7 +49,7 @@ func _physics_process(delta: float) -> void:
 	var jump_input := false
 	var fly_input := 0.0
 	var input_dir := Vector2.ZERO
-	var prev_crouching = crouching
+	var prev_crouching = (crouch_temp or crouch_toggle)
 	var sprint_input := 0.0
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		# Camera
@@ -70,7 +71,9 @@ func _physics_process(delta: float) -> void:
 		input_dir = Input.get_vector("left", "right", "forward", "backward")
 		if perspective == PERSPECTIVE_TP_FRONT:
 			input_dir.x *= -1
-		crouching = Input.is_action_pressed("crouch")
+		crouch_temp = Input.is_action_pressed("crouch")
+		if Input.is_action_just_pressed("crouch_toggle"):
+			crouch_toggle = not crouch_toggle
 		sprint_input = Input.get_action_strength("sprint")
 		# Interaction
 		block_interaction()
@@ -106,6 +109,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Y plane movement
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var crouching = (crouch_temp or crouch_toggle)
 	if prev_crouching != crouching:
 		if crouching:
 			head.position.y = 0.35
