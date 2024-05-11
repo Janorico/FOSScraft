@@ -178,3 +178,5 @@ vertical_alignment = 1
 
 [node name="PauseMenu" parent="." instance=ExtResource("4_0x047")]
 visible = false
+
+[connection signal="save_world" from="PauseMenu" to="VoxelTerrain" method="save_modified_blocks"]

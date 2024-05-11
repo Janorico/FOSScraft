@@ -1,6 +1,14 @@
 extends ColorRect
 
 
+signal save_world
+
+
+func _ready() -> void:
+	if not multiplayer.is_server():
+		$CenterContainer/VBoxContainer/HBoxContainer.hide()
+
+
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
 		visible = not visible
@@ -10,6 +18,10 @@ func _physics_process(delta: float) -> void:
 func _on_resume_button_pressed() -> void:
 	visible = false
 	get_parent().pause_menu_open = false
+
+
+func _on_save_button_pressed() -> void:
+	save_world.emit()
 
 
 func _on_backup_button_pressed() -> void:
