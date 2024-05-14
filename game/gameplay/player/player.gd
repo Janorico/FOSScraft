@@ -29,6 +29,9 @@ var selected_block := 18.0
 var perspective = PERSPECTIVE_FP
 @onready var collision_shape = $CollisionShape3D
 @onready var vt = terrain_node.get_voxel_tool()
+var current_fov = fov
+var zoom_level := 2.0
+var zooming = false
 var flying := false
 var grounded := true
 var prev_veloctiy = Vector3.ZERO
@@ -81,6 +84,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("crouch_toggle"):
 			crouch_toggle = not crouch_toggle
 		sprint_input = Input.get_action_strength("sprint")
+		zooming = Input.is_action_pressed("zoom")
 		# Interaction
 		block_interaction()
 	# TP camera
@@ -128,8 +132,12 @@ func _physics_process(delta: float) -> void:
 			collision_shape.position.y = 0
 			collision_shape.shape.size.y = 1.8
 	var speed = base_speed + ((base_speed * -0.7) if crouching else (base_speed * (sprint_input * 0.3)))
-	# Sprint effect
-	camera.fov = move_toward(camera.fov, fov + sprint_input * 2.5, delta * 25)
+	# Dynamic FOV
+	current_fov = move_toward(current_fov, fov + sprint_input * 2.5, delta * 25)
+	if zooming:
+		camera.fov = current_fov / zoom_level
+	else:
+		camera.fov = current_fov
 	tp_camera.fov = camera.fov
 	# Calculate veloctiy
 	if direction:
@@ -243,7 +251,13 @@ func _input(event: InputEvent) -> void:
 		var factor = event.factor
 		if factor == 0.0:
 			factor = 1.0
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+		if zooming:
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				zoom_level += factor * 0.2
+			elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				zoom_level -= factor * 0.2
+			zoom_level = clamp(zoom_level, 1.1, 10)
+		elif event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			selected_block -= factor
 			if selected_block <= 0:
 				selected_block = blocks.size() - 1
