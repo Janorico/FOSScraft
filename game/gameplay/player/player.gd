@@ -22,7 +22,7 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var mover = VoxelBoxMover.new()
 @onready var block_label = $SelectedBlock/BlockLabel
 @onready var blocks = terrain_node.mesher.library.models
-var selected_block := 18
+var selected_block := 18.0
 @onready var head = $Head
 @onready var camera = $Head/FPPerspective
 @onready var tp_camera = $Head/TPPerspective
@@ -199,7 +199,7 @@ func block_interaction() -> void:
 					explode_sphere.rpc_id(1, faced_block.position, 5)
 			else:
 				if multiplayer.is_server():
-					place_block(faced_block.previous_position, selected_block, fill)
+					place_block(faced_block.previous_position, round(selected_block), fill)
 				else:
 					place_block.rpc_id(1, faced_block.previous_position, selected_block, fill)
 		elif Input.is_action_just_pressed("pick_block"):
@@ -228,7 +228,7 @@ func block_interaction() -> void:
 
 
 func update_block_label() -> void:
-	block_label.text = blocks[selected_block].resource_name
+	block_label.text = blocks[round(selected_block)].resource_name
 
 
 func _input(event: InputEvent) -> void:
@@ -240,14 +240,17 @@ func _input(event: InputEvent) -> void:
 		rotation_degrees.y -= event.relative.x * 0.15
 		head.rotation_degrees.x = clamp(head.rotation_degrees.x - event.relative.y * (-0.15 if perspective == PERSPECTIVE_TP_FRONT else 0.15), -90, 90)
 	if event is InputEventMouseButton and event.is_pressed():
+		var factor = event.factor
+		if factor == 0.0:
+			factor = 1.0
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			selected_block -= 1
-			if selected_block == 0:
+			selected_block -= factor
+			if selected_block <= 0:
 				selected_block = blocks.size() - 1
 			update_block_label()
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			selected_block += 1
-			if selected_block == blocks.size():
+			selected_block += factor
+			if selected_block >= blocks.size():
 				selected_block = 1
 			update_block_label()
 
