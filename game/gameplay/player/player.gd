@@ -38,6 +38,9 @@ var crouch_temp := false
 var crouch_toggle := false
 var fill_pos = null
 var erase_pos = null
+var copy_start = null
+var copy_ready := false
+var copy_buffer = VoxelBuffer.new()
 
 
 func _ready() -> void:
@@ -199,9 +202,27 @@ func block_interaction() -> void:
 					place_block(faced_block.previous_position, selected_block, fill)
 				else:
 					place_block.rpc_id(1, faced_block.previous_position, selected_block, fill)
-		elif Input.is_action_pressed("pick_block"):
-			selected_block = vt.get_voxel(faced_block.position)
-			update_block_label()
+		elif Input.is_action_just_pressed("pick_block"):
+			if fill:
+				print("start copy/paste: ", copy_start, "; ", copy_ready)
+				if copy_ready:
+					vt.paste(faced_block.position, copy_buffer, VoxelBuffer.CHANNEL_TYPE)
+					copy_ready = false
+				elif copy_start == null:
+					copy_start = faced_block.position
+				elif not copy_ready:
+					var bounds = AABB(copy_start, Vector3.ZERO)
+					bounds.end = Vector3(faced_block.position)
+					bounds = bounds.abs()
+					bounds.size += Vector3.ONE
+					copy_buffer.create(bounds.size.x, bounds.size.y, bounds.size.z)
+					vt.copy(bounds.position, copy_buffer, VoxelBuffer.CHANNEL_TYPE)
+					copy_start = null
+					copy_ready = true
+				print("end copy/paste: ", copy_start, "; ", copy_ready)
+			else:
+				selected_block = vt.get_voxel(faced_block.position)
+				update_block_label()
 	else:
 		facing_block = null
 
