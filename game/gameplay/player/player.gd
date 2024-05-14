@@ -33,6 +33,7 @@ var flying := false
 var grounded := true
 var prev_veloctiy = Vector3.ZERO
 var last_jump_time := 0.0
+var facing_block = null
 var crouch_temp := false
 var crouch_toggle := false
 var fill_pos = null
@@ -179,6 +180,7 @@ func block_interaction() -> void:
 	var faced_block = vt.raycast(camera.global_position, -camera.global_basis.z, 5.0)
 	faced_block_visual.visible = faced_block != null
 	if faced_block:
+		facing_block = faced_block.position
 		var fill = Input.is_action_pressed("fill")
 		faced_block_visual.position = Vector3(faced_block.position) + Vector3(0.5, 0.5, 0.5)
 		if Input.is_action_just_pressed("destroy_block"):
@@ -200,6 +202,8 @@ func block_interaction() -> void:
 		elif Input.is_action_pressed("pick_block"):
 			selected_block = vt.get_voxel(faced_block.position)
 			update_block_label()
+	else:
+		facing_block = null
 
 
 func update_block_label() -> void:

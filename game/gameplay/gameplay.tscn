@@ -155,10 +155,27 @@ layout_mode = 0
 offset_right = 132.0
 offset_bottom = 12.0
 
-[node name="Label" type="Label" parent="Interface/Coordinates"]
+[node name="Container" type="GridContainer" parent="Interface/Coordinates"]
 layout_mode = 2
-text = "Position: x, y, z"
+columns = 2
+
+[node name="PositionLabel" type="Label" parent="Interface/Coordinates/Container"]
+layout_mode = 2
+text = "Position: "
 horizontal_alignment = 1
+
+[node name="PositionOut" type="Label" parent="Interface/Coordinates/Container"]
+layout_mode = 2
+text = "x, y, z"
+horizontal_alignment = 1
+
+[node name="BlockLabel" type="Label" parent="Interface/Coordinates/Container"]
+layout_mode = 2
+text = "Block: "
+
+[node name="BlockOut" type="Label" parent="Interface/Coordinates/Container"]
+layout_mode = 2
+text = "x,. y, z"
 
 [node name="FPSCounter" type="PanelContainer" parent="Interface"]
 custom_minimum_size = Vector2(96, 24)
