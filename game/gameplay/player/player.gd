@@ -173,6 +173,7 @@ func initialize(id) -> void:
 		$SelectedBlock.queue_free()
 		camera.queue_free()
 		tp_camera.queue_free()
+		$ReflectionCenter.queue_free()
 		$Head/Authorithy.queue_free()
 	if not id or is_multiplayer_authority():
 		update_block_label()

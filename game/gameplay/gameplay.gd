@@ -25,6 +25,7 @@ func _ready() -> void:
 	if Net.is_singleplayer or not multiplayer.is_server() or not Net.server_config["dedicated"]:
 		@warning_ignore("incompatible_ternary")
 		player = instance_player(null if Net.is_singleplayer else multiplayer.get_unique_id())
+		player.get_node("ReflectionCenter").remote_path = "../../../ReflectionProbe"
 	# Lock cursor
 	update_cursor()
 	# Wait for config

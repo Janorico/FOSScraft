@@ -94,6 +94,11 @@ script = ExtResource("1_u1cob")
 visible = false
 mesh = SubResource("BoxMesh_0bin3")
 
+[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
+size = Vector3(50, 50, 50)
+box_projection = true
+cull_mask = 1048573
+
 [node name="DayNightCycle" type="Node" parent="."]
 
 [node name="Sun" type="DirectionalLight3D" parent="DayNightCycle"]
