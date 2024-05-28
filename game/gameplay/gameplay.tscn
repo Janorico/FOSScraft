@@ -7,20 +7,6 @@
 [ext_resource type="Script" path="res://game/gameplay/voxel_terrain.gd" id="5_vw2g4"]
 [ext_resource type="Script" path="res://game/gameplay/interface.gd" id="5_wafdk"]
 [ext_resource type="Texture2D" uid="uid://c4a0ovtv6r37" path="res://assets/textures/crosshair.svg" id="6_jsosn"]
-[ext_resource type="Texture2D" uid="uid://b3bybmrfxtvav" path="res://assets/textures/faced_block.png" id="6_jsx4j"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qenrr"]
-transparency = 2
-alpha_scissor_threshold = 0.5
-alpha_antialiasing_mode = 0
-shading_mode = 0
-albedo_texture = ExtResource("6_jsx4j")
-uv1_scale = Vector3(3, 2, 1)
-texture_filter = 0
-
-[sub_resource type="BoxMesh" id="BoxMesh_0bin3"]
-material = SubResource("StandardMaterial3D_qenrr")
-size = Vector3(1.001, 1.001, 1.001)
 
 [sub_resource type="Animation" id="Animation_15a1u"]
 resource_name = "day_night_cycle"
@@ -89,10 +75,6 @@ shader = ExtResource("5_l1urj")
 
 [node name="Gameplay" type="Node3D"]
 script = ExtResource("1_u1cob")
-
-[node name="FacedBlock" type="MeshInstance3D" parent="."]
-visible = false
-mesh = SubResource("BoxMesh_0bin3")
 
 [node name="ReflectionProbe" type="ReflectionProbe" parent="."]
 size = Vector3(50, 50, 50)

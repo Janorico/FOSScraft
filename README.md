@@ -35,3 +35,4 @@ Just download the executable at [github.com](https://github.com/Janorico/FOSScra
 * VoxelFun [Textures](https://github.com/JanoSemi/VoxelFun/blob/main/assets/TextureAtlas.dds) ([JanoSemi/VoxelFun](https://github.com/JanoSemi/VoxelFun))
 * Sky Shader: [Stylized sky with procedural sun and moon](https://godotshaders.com/shader/stylized-sky-with-procedural-sun-and-moon/)
 * Font: [8 Bit Operator](https://www.1001freefonts.com/8-bit-operator.font)
+* Godot Debug Draw ([Zylann/godot_debug_draw](https://github.com/Zylann/godot_debug_draw))

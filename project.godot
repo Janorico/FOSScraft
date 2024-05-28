@@ -34,6 +34,7 @@ buses/default_bus_layout="res://assets/bus_layout.tres"
 
 Global="*res://game/global/global.gd"
 Net="*res://game/global/network.gd"
+DD="*res://addons/zylann.debug_draw/debug_draw.gd"
 
 [debug]
 

@@ -56,7 +56,6 @@ func update_cursor() -> void:
 func instance_player(id) -> Player:
 	var player_instance = preload("res://game/gameplay/player/player.tscn").instantiate()
 	player_instance.terrain_node = $VoxelTerrain
-	player_instance.faced_block_visual = $FacedBlock
 	players.add_child(player_instance)
 	player_instance.position.y = 20
 	player_instance.initialize(id)

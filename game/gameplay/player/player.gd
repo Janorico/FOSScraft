@@ -16,7 +16,6 @@ enum {
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export_category("External Nodes")
 @export var terrain_node: VoxelTerrain
-@export var faced_block_visual: Node3D
 @export_category("Collision")
 @export var collision_aabb: AABB
 var mover = VoxelBoxMover.new()
@@ -190,11 +189,14 @@ func take_damage(damage: float) -> void:
 
 func block_interaction() -> void:
 	var faced_block = vt.raycast(camera.global_position, -camera.global_basis.z, 5.0)
-	faced_block_visual.visible = faced_block != null
 	if faced_block:
 		facing_block = faced_block.position
+		for i in blocks[vt.get_voxel(faced_block.position)].collision_aabbs:
+			i.position += Vector3(facing_block)
+			i.size += Vector3(0.01, 0.01, 0.01)
+			i.position -= Vector3(0.005, 0.005, 0.005)
+			DD.draw_box_aabb(i)
 		var fill = Input.is_action_pressed("fill")
-		faced_block_visual.position = Vector3(faced_block.position) + Vector3(0.5, 0.5, 0.5)
 		if Input.is_action_just_pressed("destroy_block"):
 			if multiplayer.is_server():
 				break_block(faced_block.position, fill)
