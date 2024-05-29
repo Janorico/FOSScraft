@@ -1,12 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://ccdiipswvdw7g"]
+[gd_scene load_steps=14 format=3 uid="uid://ccdiipswvdw7g"]
 
 [ext_resource type="Script" path="res://game/gameplay/gameplay.gd" id="1_u1cob"]
 [ext_resource type="PackedScene" uid="uid://dmwblh7u8l8mb" path="res://game/gameplay/pause_menu.tscn" id="4_0x047"]
-[ext_resource type="VoxelBlockyLibrary" uid="uid://6wxydt7imxjg" path="res://assets/block_library.tres" id="4_vb2yc"]
 [ext_resource type="Shader" path="res://assets/shaders/invert.gdshader" id="5_l1urj"]
 [ext_resource type="Script" path="res://game/gameplay/voxel_terrain.gd" id="5_vw2g4"]
 [ext_resource type="Script" path="res://game/gameplay/interface.gd" id="5_wafdk"]
 [ext_resource type="Texture2D" uid="uid://c4a0ovtv6r37" path="res://assets/textures/crosshair.svg" id="6_jsosn"]
+[ext_resource type="Resource" uid="uid://db0jy1gs2034e" path="res://assets/fosscraft_block_library.tres" id="7_e5x4n"]
 
 [sub_resource type="Animation" id="Animation_15a1u"]
 resource_name = "day_night_cycle"
@@ -68,7 +68,6 @@ _data = {
 }
 
 [sub_resource type="VoxelMesherBlocky" id="VoxelMesherBlocky_fbbpv"]
-library = ExtResource("4_vb2yc")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gglli"]
 shader = ExtResource("5_l1urj")
@@ -109,6 +108,8 @@ generate_collisions = false
 collision_mask = 3
 run_stream_in_editor = false
 script = ExtResource("5_vw2g4")
+fosscraft_block_library = ExtResource("7_e5x4n")
+block_atlas_size = Vector2i(7, 7)
 
 [node name="VoxelTerrainMultiplayerSynchronizer" type="VoxelTerrainMultiplayerSynchronizer" parent="VoxelTerrain"]
 

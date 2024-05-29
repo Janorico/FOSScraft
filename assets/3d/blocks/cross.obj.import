@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c1aiopahqb06c"
+path="res://.godot/imported/cross.obj-97eaca1ddbab1f6dde34f2586742c6ad.mesh"
+
+[deps]
+
+files=["res://.godot/imported/cross.obj-97eaca1ddbab1f6dde34f2586742c6ad.mesh"]
+
+source_file="res://assets/3d/blocks/cross.obj"
+dest_files=["res://.godot/imported/cross.obj-97eaca1ddbab1f6dde34f2586742c6ad.mesh", "res://.godot/imported/cross.obj-97eaca1ddbab1f6dde34f2586742c6ad.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
