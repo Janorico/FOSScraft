@@ -13,7 +13,7 @@ func _generate_block(out_buffer: VoxelBuffer, origin_in_voxels: Vector3i, _lod: 
 	if not setup_done:
 		# Apply seed
 		noise.seed = terrain_seed
-		cave_noise.seed = terrain_seed
+		cave_noise.seed = terrain_seed + 1
 		ore_noise.seed = terrain_seed
 		# Conigure noises
 		ore_noise.period = 8
