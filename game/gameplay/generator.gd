@@ -3,6 +3,7 @@ class_name TerrainGeneratorNormal extends FOSScraftGenerator
 @export var terrain_height := 20
 # Noises
 var noise := FastNoiseLite.new()
+var cave_noise := FastNoiseLite.new()
 var ore_noise := ZN_FastNoiseLite.new()
 
 var setup_done := false
@@ -12,6 +13,7 @@ func _generate_block(out_buffer: VoxelBuffer, origin_in_voxels: Vector3i, _lod: 
 	if not setup_done:
 		# Apply seed
 		noise.seed = terrain_seed
+		cave_noise.seed = terrain_seed
 		ore_noise.seed = terrain_seed
 		# Conigure noises
 		ore_noise.period = 8
@@ -35,6 +37,8 @@ func _generate_block(out_buffer: VoxelBuffer, origin_in_voxels: Vector3i, _lod: 
 					out_buffer.set_voxel(1, x, y, z)
 				elif global_y > surface_y - 20:
 					out_buffer.set_voxel(4, x, y, z)
+				elif cave_noise.get_noise_3d(global_x, global_y, global_z) > 0.5:
+					out_buffer.set_voxel(0, x, y, z)
 				else:
 					out_buffer.set_voxel(5, x, y, z)
 				# Ore generation
