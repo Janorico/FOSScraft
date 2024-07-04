@@ -10,5 +10,5 @@ func _physics_process(_delta: float) -> void:
 	if not player:
 		return
 	position_out.text = str(player.position)
-	block_out.text = str(player.facing_block) if player.facing_block else "(-, -, -)"
+	block_out.text = str(player.facing_block) if player.facing_block != null else "(-, -, -)"
 	fps_counter_label.text = str(Engine.get_frames_per_second(), " FPS")
