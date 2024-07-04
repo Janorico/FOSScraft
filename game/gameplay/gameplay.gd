@@ -36,7 +36,14 @@ func _ready() -> void:
 	# Generator
 	var world_info = Global.worlds[world] if world else Net.server_config["world"]
 	@warning_ignore("incompatible_ternary")
-	var generator = TerrainGeneratorNormal.new() if world_info["type"] == Global.TYPE_NORMAL else TerrainGeneratoFlat.new()
+	var generator
+	match world_info["type"] as int:
+		Global.TYPE_FLAT:
+			generator = TerrainGeneratoFlat.new()
+		Global.TYPE_EMPTY:
+			generator = TerrainGeneratorEmpty.new()
+		_:
+			generator = TerrainGeneratorNormal.new()
 	generator.terrain_seed = floori(world_info["seed"])
 	voxel_terrain.generator = generator
 	if world: # Alternate: Net.is_singleplayer or multiplayer.is_server()

@@ -2,7 +2,8 @@ extends Node
 
 enum {
 	TYPE_NORMAL = 0,
-	TYPE_FLAT = 1
+	TYPE_FLAT = 1,
+	TYPE_EMPTY = 2
 }
 const WORLDS_DIR = "user://worlds"
 const MULTIPLAYER_INFO_FILE = "user://multiplayer.json"
