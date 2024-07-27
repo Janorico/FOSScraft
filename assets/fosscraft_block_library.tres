@@ -119,7 +119,7 @@ cross_position = Vector2i(0, 0)
 cross_aabb = Array[AABB]([AABB(0.15, 0, 0.15, 0.7, 0.69, 0.7)])
 cross_collision_mask = 4
 has_stairs = false
-has_slabs = false
+has_slabs = true
 
 [sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_q0o15"]
 resource_name = "Stone"
@@ -141,8 +141,8 @@ is_cross = false
 cross_position = Vector2i(0, 0)
 cross_aabb = Array[AABB]([AABB(0.15, 0, 0.15, 0.7, 0.69, 0.7)])
 cross_collision_mask = 4
-has_stairs = false
-has_slabs = false
+has_stairs = true
+has_slabs = true
 
 [sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_8nuli"]
 resource_name = "Cactus"
@@ -318,8 +318,8 @@ is_cross = false
 cross_position = Vector2i(0, 0)
 cross_aabb = Array[AABB]([AABB(0.15, 0, 0.15, 0.7, 0.69, 0.7)])
 cross_collision_mask = 4
-has_stairs = false
-has_slabs = false
+has_stairs = true
+has_slabs = true
 
 [sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_136xn"]
 resource_name = "Stone Bricks"
@@ -341,8 +341,8 @@ is_cross = false
 cross_position = Vector2i(0, 0)
 cross_aabb = Array[AABB]([AABB(0.15, 0, 0.15, 0.7, 0.69, 0.7)])
 cross_collision_mask = 4
-has_stairs = false
-has_slabs = false
+has_stairs = true
+has_slabs = true
 
 [sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_cb3c4"]
 resource_name = "Bricks"
@@ -364,8 +364,8 @@ is_cross = false
 cross_position = Vector2i(0, 0)
 cross_aabb = Array[AABB]([AABB(0.15, 0, 0.15, 0.7, 0.69, 0.7)])
 cross_collision_mask = 4
-has_stairs = false
-has_slabs = false
+has_stairs = true
+has_slabs = true
 
 [sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_ib5iq"]
 resource_name = "Iron"
