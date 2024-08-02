@@ -90,12 +90,14 @@ script = ExtResource("4_o3lci")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 rotation_order = 0
 shadow_enabled = true
+directional_shadow_mode = 1
 
 [node name="Moon" type="DirectionalLight3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 rotation_order = 0
 light_energy = 0.0
 shadow_enabled = true
+directional_shadow_mode = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Environment"]
 libraries = {
