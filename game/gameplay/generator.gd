@@ -61,9 +61,9 @@ func _get_used_channels_mask() -> int:
 ## ORE GENERATION
 func ore_generation(x: int, y: int, z: int, vx: int, vy: int, vz: int, out_buffer: VoxelBuffer) -> void:
 	var noise_result = (ore_noise.get_noise_3d(vx, vy, vz) + 1) / 2
-	if noise_result < 0.15:
+	if noise_result < 0.2:
 		out_buffer.set_voxel(25, x, y, z)
-	if noise_result > 0.85:
+	if noise_result > 0.8:
 		out_buffer.set_voxel(26, x, y, z)
 
 
