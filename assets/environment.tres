@@ -35,6 +35,8 @@ shader_parameter/overwritten_time = 0.0
 
 [sub_resource type="Sky" id="Sky_8radd"]
 sky_material = SubResource("ShaderMaterial_t32vi")
+process_mode = 2
+radiance_size = 0
 
 [resource]
 background_mode = 2
