@@ -6,7 +6,7 @@ func _generate_block(out_buffer: VoxelBuffer, origin_in_voxels: Vector3i, _lod: 
 		return
 	for x in out_buffer.get_size().x:
 		for z in out_buffer.get_size().z:
-			out_buffer.set_voxel(5, x, 0, z)
+			out_buffer.set_voxel(7, x, 0, z)
 			out_buffer.set_voxel(4, x, 1, z)
 			out_buffer.set_voxel(1, x, 2, z)
 

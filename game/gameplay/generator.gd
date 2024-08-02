@@ -40,7 +40,7 @@ func _generate_block(out_buffer: VoxelBuffer, origin_in_voxels: Vector3i, _lod: 
 				elif cave_noise.get_noise_3d(global_x, global_y, global_z) > 0.5:
 					out_buffer.set_voxel(0, x, y, z)
 				else:
-					out_buffer.set_voxel(5, x, y, z)
+					out_buffer.set_voxel(7, x, y, z)
 				# Ore generation
 				if global_y < surface_y - 50:
 					ore_generation(x, y, z, global_x, global_y, global_z, out_buffer)
@@ -48,9 +48,9 @@ func _generate_block(out_buffer: VoxelBuffer, origin_in_voxels: Vector3i, _lod: 
 				if global_y == surface_y + 1:
 					var number = rng.randf()
 					if number < 0.05:
-						out_buffer.set_voxel(rng.randi_range(9, 12), x, y, z)
+						out_buffer.set_voxel(rng.randi_range(21, 24), x, y, z)
 					elif number < 0.2:
-						out_buffer.set_voxel(7, x, y, z)
+						out_buffer.set_voxel(19, x, y, z)
 	out_buffer.compress_uniform_channels()
 
 
@@ -62,9 +62,9 @@ func _get_used_channels_mask() -> int:
 func ore_generation(x: int, y: int, z: int, vx: int, vy: int, vz: int, out_buffer: VoxelBuffer) -> void:
 	var noise_result = (ore_noise.get_noise_3d(vx, vy, vz) + 1) / 2
 	if noise_result < 0.15:
-		out_buffer.set_voxel(13, x, y, z)
+		out_buffer.set_voxel(25, x, y, z)
 	if noise_result > 0.85:
-		out_buffer.set_voxel(14, x, y, z)
+		out_buffer.set_voxel(26, x, y, z)
 
 
 class Biome extends Resource:
