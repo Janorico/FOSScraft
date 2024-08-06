@@ -43,6 +43,8 @@ var erase_pos = null
 var copy_start = null
 var copy_ready := false
 var copy_buffer = VoxelBuffer.new()
+var export_buffer = VoxelBuffer.new()
+var selected_block = 1
 
 
 func _ready() -> void:
@@ -228,6 +230,8 @@ func block_interaction() -> void:
 					bounds.size += Vector3.ONE
 					copy_buffer.create(bounds.size.x, bounds.size.y, bounds.size.z)
 					vt.copy(bounds.position, copy_buffer, VoxelBuffer.CHANNEL_TYPE)
+					export_buffer.create(bounds.size.x + 2, bounds.size.y + 2, bounds.size.z + 2)
+					vt.copy(bounds.position - Vector3(1, 1, 1), export_buffer, VoxelBuffer.CHANNEL_TYPE)
 					copy_start = null
 					copy_ready = true
 				print("end copy/paste: ", copy_start, "; ", copy_ready)

@@ -26,6 +26,7 @@ func _ready() -> void:
 		@warning_ignore("incompatible_ternary")
 		player = instance_player(null if Net.is_singleplayer else multiplayer.get_unique_id())
 		player.get_node("ReflectionCenter").remote_path = "../../../ReflectionProbe"
+	$PauseMenu.export_buffer.connect(_on_export_buffer)
 	# Lock cursor
 	update_cursor()
 	# Wait for config
@@ -67,6 +68,11 @@ func instance_player(id) -> Player:
 	player_instance.position.y = 20
 	player_instance.initialize(id)
 	return player_instance
+
+func _on_export_buffer(path: String, copyright: String) -> void:
+	if player == null or not player.copy_ready:
+		return
+	$PauseMenu.export_buffer_to_gltf(player.export_buffer, player.terrain_node.mesher, path, copyright)
 
 
 func _on_player_disconnected(id: int) -> void:

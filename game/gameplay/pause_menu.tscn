@@ -23,7 +23,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
@@ -52,6 +52,42 @@ size_flags_horizontal = 3
 tooltip_text = "Save a backup of your world."
 text = "Save Backup"
 
+[node name="ExportBufferButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Export Buffer"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="CenterContainer/VBoxContainer/ExportBufferButton"]
+title = "Export Buffer"
+size = Vector2i(200, 122)
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/VBoxContainer/ExportBufferButton/ConfirmationDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 68.0
+columns = 2
+
+[node name="DestinationLabel" type="Label" parent="CenterContainer/VBoxContainer/ExportBufferButton/ConfirmationDialog/GridContainer"]
+layout_mode = 2
+text = "Destination:"
+
+[node name="DestinationButton" type="Button" parent="CenterContainer/VBoxContainer/ExportBufferButton/ConfirmationDialog/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pick"
+
+[node name="FileDialog" type="FileDialog" parent="CenterContainer/VBoxContainer/ExportBufferButton/ConfirmationDialog/GridContainer/DestinationButton"]
+size = Vector2i(700, 500)
+access = 2
+filters = PackedStringArray("*.glb ; GLTF Binary File", "*.gltf ; GLTF Text File")
+
+[node name="CopyrightLabel" type="Label" parent="CenterContainer/VBoxContainer/ExportBufferButton/ConfirmationDialog/GridContainer"]
+layout_mode = 2
+text = "Copyright:"
+
+[node name="CopyrightLineEdit" type="LineEdit" parent="CenterContainer/VBoxContainer/ExportBufferButton/ConfirmationDialog/GridContainer"]
+layout_mode = 2
+
 [node name="MainMenuButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Main Menu"
@@ -63,5 +99,8 @@ text = "Quit Game"
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/BackupButton" to="." method="_on_backup_button_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ExportBufferButton" to="CenterContainer/VBoxContainer/ExportBufferButton/ConfirmationDialog" method="popup_centered"]
+[connection signal="confirmed" from="CenterContainer/VBoxContainer/ExportBufferButton/ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/ExportBufferButton/ConfirmationDialog/GridContainer/DestinationButton" to="CenterContainer/VBoxContainer/ExportBufferButton/ConfirmationDialog/GridContainer/DestinationButton/FileDialog" method="popup_centered"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
