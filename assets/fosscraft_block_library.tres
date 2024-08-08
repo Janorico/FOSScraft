@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="FOSScraftBlockLibrary" load_steps=52 format=3 uid="uid://db0jy1gs2034e"]
+[gd_resource type="Resource" script_class="FOSScraftBlockLibrary" load_steps=54 format=3 uid="uid://db0jy1gs2034e"]
 
 [ext_resource type="Script" path="res://game/gameplay/block.gd" id="1_3iha3"]
 [ext_resource type="Texture2D" uid="uid://5m5p4ap7oej5" path="res://assets/textures/blocks_atlas.png" id="2_bdtbs"]
@@ -532,6 +532,29 @@ cross_collision_mask = 4
 has_stairs = false
 has_slabs = false
 
+[sub_resource type="VoxelBlockyModelCube" id="VoxelBlockyModelCube_sbigo"]
+resource_name = "Beech Bookshelf"
+material_override_0 = SubResource("StandardMaterial3D_5j20s")
+atlas_size_in_tiles = Vector2i(7, 7)
+tile_left = Vector2i(5, 3)
+tile_right = Vector2i(5, 3)
+tile_bottom = Vector2i(5, 3)
+tile_top = Vector2i(5, 3)
+tile_back = Vector2i(5, 4)
+tile_front = Vector2i(5, 4)
+
+[sub_resource type="Resource" id="Resource_qp4ur"]
+resource_name = "Beech Bookshelf"
+script = ExtResource("1_3iha3")
+base_model = SubResource("VoxelBlockyModelCube_sbigo")
+rotation_type = 0
+is_cross = false
+cross_position = Vector2i(0, 0)
+cross_aabb = Array[AABB]([AABB(0.15, 0, 0.15, 0.7, 0.69, 0.7)])
+cross_collision_mask = 4
+has_stairs = false
+has_slabs = false
+
 [resource]
 script = ExtResource("11_77ju7")
-blocks = Array[ExtResource("1_3iha3")]([SubResource("Resource_ir337"), SubResource("Resource_dolwa"), SubResource("Resource_dqrke"), SubResource("Resource_xe1qa"), SubResource("Resource_qpeh6"), SubResource("Resource_ot81g"), SubResource("Resource_paiae"), SubResource("Resource_7wyak"), SubResource("Resource_m5h1g"), SubResource("Resource_tk0yo"), SubResource("Resource_4ihu3"), SubResource("Resource_4py8r"), SubResource("Resource_5w5lf"), SubResource("Resource_2jdxp"), SubResource("Resource_5g8un"), SubResource("Resource_lha1g"), SubResource("Resource_tus2u"), SubResource("Resource_3s2xj"), SubResource("Resource_52dyx"), SubResource("Resource_7qfst"), SubResource("Resource_7ldcp"), SubResource("Resource_1ch64"), SubResource("Resource_l0pb7"), SubResource("Resource_86sqh")])
+blocks = Array[ExtResource("1_3iha3")]([SubResource("Resource_ir337"), SubResource("Resource_dolwa"), SubResource("Resource_dqrke"), SubResource("Resource_xe1qa"), SubResource("Resource_qpeh6"), SubResource("Resource_ot81g"), SubResource("Resource_paiae"), SubResource("Resource_7wyak"), SubResource("Resource_m5h1g"), SubResource("Resource_tk0yo"), SubResource("Resource_4ihu3"), SubResource("Resource_4py8r"), SubResource("Resource_5w5lf"), SubResource("Resource_2jdxp"), SubResource("Resource_5g8un"), SubResource("Resource_lha1g"), SubResource("Resource_tus2u"), SubResource("Resource_3s2xj"), SubResource("Resource_52dyx"), SubResource("Resource_7qfst"), SubResource("Resource_7ldcp"), SubResource("Resource_1ch64"), SubResource("Resource_l0pb7"), SubResource("Resource_86sqh"), SubResource("Resource_qp4ur")])
